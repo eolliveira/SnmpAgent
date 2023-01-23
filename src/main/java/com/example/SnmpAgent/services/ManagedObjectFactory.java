@@ -42,12 +42,10 @@ public class ManagedObjectFactory {
     }
 
     private static MOScalar getCustomManagedObject(OID oid, MOAccess access, String objectName) {
-
         CustomManagedObject mo = null;
 
         try {
-
-            mo = (CustomManagedObject) Class.forName("com.progcraft.example.snmp.objects." + capitalize(objectName))
+            mo = (CustomManagedObject) Class.forName("com.example.SnmpAgent.model." + capitalize(objectName))
                     .getConstructor(OID.class, MOAccess.class)
                     .newInstance(oid, access);
 
@@ -65,7 +63,7 @@ public class ManagedObjectFactory {
         } else if (value instanceof Integer) {
             return new Integer32((Integer) value);
         }
-        // TODO handle additional data types, if required
+        // TODO - lidar com tipos de dados adicionais, se necessário
 
         throw new IllegalArgumentException("Tipo não gerenciado: " + value.getClass());
     }

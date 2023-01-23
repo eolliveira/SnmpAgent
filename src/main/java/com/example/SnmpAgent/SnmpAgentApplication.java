@@ -1,7 +1,6 @@
 package com.example.SnmpAgent;
 
 import com.example.SnmpAgent.services.SnmpAgentReceiver;
-import com.example.SnmpAgent.services.SnmpTrapSender;
 
 import java.io.IOException;
 
@@ -12,14 +11,12 @@ public class SnmpAgentApplication {
     private static String portTrap = "162";
 
     public static void main(String[] args) throws IOException {
-        //lança trap para o manager
-        SnmpTrapSender trapSender = new SnmpTrapSender();
-        trapSender.sendTrapV1(COMMUNITY, IPADDRESS, portTrap, OID);
+//        //lança trap para o manager
+//        SnmpTrapSender trapSender = new SnmpTrapSender();
+//        trapSender.sendTrapV1(COMMUNITY, IPADDRESS, portTrap, OID);
 
-        ///////////////////////////
 
         try {
-
             // crie um agente para escutar em localhost:161
             SnmpAgentReceiver agentReceiver = new SnmpAgentReceiver("0.0.0.0/161");
 
@@ -29,7 +26,7 @@ public class SnmpAgentApplication {
             // register the custom mib information
             agentReceiver.registerCustomMIB();
 
-            System.out.println("SNMP agent listening on port 161");
+            System.out.println("AgentSNMP ouvindo na porta 161");
 
             // apenas continue executando o processo
             // em um cenário normal, o agente será instanciado em um processo vivo
@@ -38,10 +35,8 @@ public class SnmpAgentApplication {
             }
 
         } catch (Exception e) {
-            System.out.println("Failed to start SNMP agent on port 161 : " + e.getMessage());
+            System.out.println("Falha ao iniciar o agente SNMP na porta 161 : " + e.getMessage());
         }
-
-
 
     }
 

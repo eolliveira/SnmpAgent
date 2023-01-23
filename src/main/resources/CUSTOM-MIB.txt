@@ -21,11 +21,11 @@ customMIBGroups OBJECT IDENTIFIER ::= { customMIBConformance 1 }
 customMIBGroup OBJECT-GROUP
     OBJECTS { generalGreeting,
               generalRandom,
+              ipAddress,
               dateString,
               datePartsDay,
               datePartsMonth,
-              datePartsYear,
-               IpAddress}
+              datePartsYear}
     STATUS current
     DESCRIPTION "All the available objects"
     ::= { customMIBGroups 1 }

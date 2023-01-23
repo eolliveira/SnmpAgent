@@ -10,6 +10,9 @@ import org.snmp4j.security.SecurityModel;
 import org.snmp4j.security.USM;
 import org.snmp4j.smi.*;
 import org.snmp4j.transport.TransportMappings;
+import oshi.SystemInfo;
+import oshi.hardware.HardwareAbstractionLayer;
+import oshi.software.os.OperatingSystem;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,9 +21,6 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 public class SnmpAgentReceiver extends BaseAgent {
-
-
-    ///////////////////
     private String address;
 
     // Example: new SnmpAgentReceiver("0.0.0.0/161");
@@ -37,7 +37,6 @@ public class SnmpAgentReceiver extends BaseAgent {
           * encerramento do agente. "commandProcessor" - o CommandProcessor
           * instância que lida com as solicitações SNMP.
           * */
-
         super(
                 new File("conf.agent"),
                 new File("bootCounter.agent"),
@@ -46,9 +45,9 @@ public class SnmpAgentReceiver extends BaseAgent {
         this.address = address;
     }
 
-    /**
-     * Adiciona a comunidade aos mapeamentos de nomes de segurança necessários para SNMPv1 e SNMPv2c.
-     */
+
+
+     //Adiciona a comunidade aos mapeamentos de nomes de segurança necessários para SNMPv1 e SNMPv2c.
     @Override
     protected void addCommunities(SnmpCommunityMIB communityMIB) {
 
@@ -68,9 +67,8 @@ public class SnmpAgentReceiver extends BaseAgent {
         communityMIB.getSnmpCommunityEntry().addRow(row);
     }
 
-    /**
-     * Adds initial notification targets and filters.
-     */
+
+     //Adiciona alvos e filtros de notificação iniciais.
     @Override
     protected void addNotificationTargets(SnmpTargetMIB arg0, SnmpNotificationMIB arg1) {
     }
@@ -82,9 +80,8 @@ public class SnmpAgentReceiver extends BaseAgent {
     protected void addUsmUser(USM arg0) {
     }
 
-    /**
-     * Adds initial VACM configuration.
-     */
+
+     // Adiciona a configuração inicial do VACM.
     @Override
     protected void addViews(VacmMIB vacm) {
 
@@ -173,7 +170,7 @@ public class SnmpAgentReceiver extends BaseAgent {
 
     public void registerCustomMIB() throws UnknownHostException, UnsupportedEncodingException {
 
-        // no need to answer for default OIDs loaded by the base class
+        // não há necessidade de responder por OIDs padrão carregados pela classe base
         unregisterManagedObject(getSnmpv2MIB());
 
         /*
@@ -200,41 +197,83 @@ public class SnmpAgentReceiver extends BaseAgent {
 
         System.out.println();
 
-        InetAddress addr = InetAddress.getLocalHost();
-        byte[] macAddress = addr.getAddress();
-        String hostname = addr.getHostName();
+        SystemInfo si = new SystemInfo();
+
+        HardwareAbstractionLayer hal = si.getHardware();
+        OperatingSystem os = si.getOperatingSystem();
 
 
-        registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".2.2.3.0", hostname));
-        registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".1.1.0", System.getProperty("user.dir") ));
-        registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".1.2.0", System.getProperty("sun.arch.data.model")));
-
-        // license
-
-        registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".2.1.0", System.getProperty("os.name")));
-        registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".2.2.1.0", System.getProperty("user.name")));
-        registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".2.2.2.0", new String(macAddress)));
-
-
-        ////////////////
-
-//        // this is the OID
-//        String customMibOid = ".1.3.6.1.4.1.12345";
+//        System.out.println("SO: " + os);
+//        System.out.println("---------");
 //
-//        // register all custom MIB data
+//        System.out.println("Arquitetura: " + os.getBitness());
+//        System.out.println("---------");
 //
-//        // general
+//        System.out.println("fabricante: " + hal.getComputerSystem().getManufacturer());
+//        System.out.println("---------");
 //
-//        System.out.println();
+//        System.out.println("modelo: " + hal.getComputerSystem().getModel());
+//        System.out.println("---------");
 //
-//        registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".1.1.0", "generalGreeting"));
-//        registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".1.2.0", "generalRandom"));
+//        System.out.println("SerialNumber : " + hal.getComputerSystem().getSerialNumber());
+//        System.out.println("------------");
 //
-//        // license
+//        System.out.println("Processador: " + hal.getProcessor());
+//        System.out.println("---------");
 //
-//        registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".2.1.0", System.getProperty("os.name")));
-//        registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".2.2.1.0", "datePartsDay"));
-//        registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".2.2.2.0", "datePartsMonth"));
-//        registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".2.2.3.0", "datePartsYear"));
+//        System.out.println("memeoria ram: " +  hal.getMemory().getTotal());
+//        System.out.println("---------+++o ");
+//
+//        System.out.println("hostname: " + os.getNetworkParams().getHostName());
+//        System.out.println("---------");
+//
+//        System.out.println("dominio: " + os.getNetworkParams().getDomainName());
+//        System.out.println("---------");
+//
+//        System.out.println("Gateway: " + os.getNetworkParams().getIpv4DefaultGateway());
+//        System.out.println("---------");
+//
+//        System.out.println("DNS1: " + os.getNetworkParams().getDnsServers()[0] );
+//        System.out.println("---------");
+//
+//        System.out.println("DNS2: " + os.getNetworkParams().getDnsServers()[1] );
+//        System.out.println("---------");
+//
+          String ipAddress = "";
+          for(String s : hal.getNetworkIFs().get(1).getIPv4addr()){
+              ipAddress = ipAddress + s;
+          }
+//        //interface - index 1
+//        System.out.println("IpAddress: " + ipAddress);
+//        System.out.println("---------");
+//
+//        //interface - index 1
+//        System.out.println("MAC Address: " + hal.getNetworkIFs().get(1).getMacaddr());
+//        System.out.println("---------");
+
+
+        registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".1.1.0", os.toString() ));
+        registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".1.2.0", os.getBitness() ));
+        registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".1.3.0", hal.getComputerSystem().getManufacturer()));
+        registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".1.4.0", hal.getComputerSystem().getModel()));
+        registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".1.5.0", hal.getComputerSystem().getSerialNumber()));
+        registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".1.6.0", hal.getProcessor().toString()));
+        registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".2.1.0", hal.getMemory().toString())); //memoria
+
+        registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".2.2.1.0", os.getNetworkParams().getHostName())); //hostname
+        registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".2.2.2.0", os.getNetworkParams().getDomainName())); //dominio
+        registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".2.2.3.0", os.getNetworkParams().getIpv4DefaultGateway())); //gateway
+
+        registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".2.2.4.0", os.getNetworkParams().getDnsServers()[0])); //dns1
+        registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".2.2.5.0", os.getNetworkParams().getDnsServers()[1])); //dns2
+
+        registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".2.2.6.0", ipAddress)); //ip
+        registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".2.2.7.0", hal.getNetworkIFs().get(1).getMacaddr())); //mac
+
+
+
+
+
+
     }
 }
