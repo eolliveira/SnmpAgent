@@ -203,53 +203,53 @@ public class SnmpAgentReceiver extends BaseAgent {
         OperatingSystem os = si.getOperatingSystem();
 
 
-//        System.out.println("SO: " + os);
-//        System.out.println("---------");
-//
-//        System.out.println("Arquitetura: " + os.getBitness());
-//        System.out.println("---------");
-//
-//        System.out.println("fabricante: " + hal.getComputerSystem().getManufacturer());
-//        System.out.println("---------");
-//
-//        System.out.println("modelo: " + hal.getComputerSystem().getModel());
-//        System.out.println("---------");
-//
-//        System.out.println("SerialNumber : " + hal.getComputerSystem().getSerialNumber());
-//        System.out.println("------------");
-//
-//        System.out.println("Processador: " + hal.getProcessor());
-//        System.out.println("---------");
-//
-//        System.out.println("memeoria ram: " +  hal.getMemory().getTotal());
-//        System.out.println("---------+++o ");
-//
-//        System.out.println("hostname: " + os.getNetworkParams().getHostName());
-//        System.out.println("---------");
-//
-//        System.out.println("dominio: " + os.getNetworkParams().getDomainName());
-//        System.out.println("---------");
-//
-//        System.out.println("Gateway: " + os.getNetworkParams().getIpv4DefaultGateway());
-//        System.out.println("---------");
-//
-//        System.out.println("DNS1: " + os.getNetworkParams().getDnsServers()[0] );
-//        System.out.println("---------");
-//
-//        System.out.println("DNS2: " + os.getNetworkParams().getDnsServers()[1] );
-//        System.out.println("---------");
-//
+        System.out.println("SO: " + os);
+        System.out.println("---------");
+
+        System.out.println("Arquitetura: " + os.getBitness());
+        System.out.println("---------");
+
+        System.out.println("fabricante: " + hal.getComputerSystem().getManufacturer());
+        System.out.println("---------");
+
+        System.out.println("modelo: " + hal.getComputerSystem().getModel());
+        System.out.println("---------");
+
+        System.out.println("SerialNumber : " + hal.getComputerSystem().getSerialNumber());
+        System.out.println("------------");
+
+        System.out.println("Processador: " + hal.getProcessor());
+        System.out.println("---------");
+
+        System.out.println("memeoria ram: " +  hal.getMemory().getTotal());
+        System.out.println("---------+++o ");
+
+        System.out.println("hostname: " + os.getNetworkParams().getHostName());
+        System.out.println("---------");
+
+        System.out.println("dominio: " + os.getNetworkParams().getDomainName());
+        System.out.println("---------");
+
+        System.out.println("Gateway: " + os.getNetworkParams().getIpv4DefaultGateway());
+        System.out.println("---------");
+
+        System.out.println("DNS1: " + os.getNetworkParams().getDnsServers()[0] );
+        System.out.println("---------");
+
+        System.out.println("DNS2: " + os.getNetworkParams().getDnsServers()[1] );
+        System.out.println("---------");
+
           String ipAddress = "";
           for(String s : hal.getNetworkIFs().get(1).getIPv4addr()){
               ipAddress = ipAddress + s;
           }
-//        //interface - index 1
-//        System.out.println("IpAddress: " + ipAddress);
-//        System.out.println("---------");
-//
-//        //interface - index 1
-//        System.out.println("MAC Address: " + hal.getNetworkIFs().get(1).getMacaddr());
-//        System.out.println("---------");
+        //interface - index 1
+        System.out.println("IpAddress: " + ipAddress);
+        System.out.println("---------");
+
+        //interface - index 1
+        System.out.println("MAC Address: " + hal.getNetworkIFs().get(1).getMacaddr());
+        System.out.println("---------");
 
 
         registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".1.1.0", os.toString() ));
