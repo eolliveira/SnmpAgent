@@ -210,19 +210,11 @@ public class SnmpAgentReceiver extends BaseAgent {
 
 
         //lista de dns
-        String[] dnsList = os.getNetworkParams().getDnsServers();
-        List<String> interfaces = new ArrayList<>();
-        System.out.println("DNS: " );
-        for (String dns : dnsList) {
-            interfaces.add(dns);
-            System.out.println(dns);
+        String[] dnsServers = os.getNetworkParams().getDnsServers();
+        List<String> dnsList = new ArrayList<>();
+        for (String dns : dnsServers) {
+            dnsList.add(dns);
         }
-        System.out.println("---------");
-
-
-
-
-
 
         //lista de interfaces
         List<InterfaceObject> listInterface = new ArrayList<>();
@@ -231,29 +223,19 @@ public class SnmpAgentReceiver extends BaseAgent {
             listInterface.add(obj);
         }
 
-        for (InterfaceObject obj : listInterface) {
-            System.out.println(obj.toString());
-        }
-
-
-
         registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".1.1.0", os.toString() ));
         registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".1.2.0", os.getBitness() ));
         registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".1.3.0", hal.getComputerSystem().getManufacturer()));
         registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".1.4.0", hal.getComputerSystem().getModel()));
         registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".1.5.0", hal.getComputerSystem().getSerialNumber()));
         registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".1.6.0", hal.getProcessor().toString()));
-        registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".2.1.0", hal.getMemory().toString())); //memoria
+        registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".2.1.0", hal.getMemory().getTotal())); //memoria
         registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".2.2.1.0", os.getNetworkParams().getHostName())); //hostname
         registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".2.2.2.0", os.getNetworkParams().getDomainName())); //dominio
         registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".2.2.3.0", os.getNetworkParams().getIpv4DefaultGateway())); //gateway
 
-        registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".2.2.4.0", interfaces)); //dns1
-        registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".2.2.6.0", listInterface)); //ip
-
-
-
-
+        registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".2.2.4.0", dnsList)); //lista de interfaces
+        registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".2.2.6.0", listInterface)); //
 
 
     }

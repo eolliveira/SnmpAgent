@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class InterfaceObject {
 
-    private String nameLocal;
+    private String nomeLocal;
     private String nomeFabricante;
     private String enderecoMac;
     private String enderecoIp;
@@ -13,19 +13,19 @@ public class InterfaceObject {
     public InterfaceObject(){}
 
     public InterfaceObject(String nameLocal, String nomeFabricante, String enderecoMac, String[] enderecoIp, String mascaraSubRede) {
-        this.nameLocal = nameLocal;
+        this.nomeLocal = nameLocal;
         this.nomeFabricante = nomeFabricante;
         this.enderecoMac = enderecoMac;
         this.enderecoIp = Arrays.toString(enderecoIp);
         this.mascaraSubRede = mascaraSubRede;
     }
 
-    public String getNameLocal() {
-        return nameLocal;
+    public String getNomeLocal() {
+        return nomeLocal;
     }
 
-    public void setNameLocal(String nameLocal) {
-        this.nameLocal = nameLocal;
+    public void setNomeLocal(String nomeLocal) {
+        this.nomeLocal = nomeLocal;
     }
 
     public String getNomeFabricante() {
@@ -62,12 +62,12 @@ public class InterfaceObject {
 
     @Override
     public String toString() {
-        return "InterfaceObject{" +
-                "nameLocal='" + nameLocal + '\'' +
-                ", nomeFabricante='" + nomeFabricante + '\'' +
-                ", enderecoMac='" + enderecoMac + '\'' +
-                ", enderecoIp='" + enderecoIp + '\'' +
-                ", mascaraSubRede='" + mascaraSubRede + '\'' +
+        return "{" +
+                "'nomeLocal':'" + nomeLocal + '\'' +
+                ", 'nomeFabricante':'" + nomeFabricante + '\'' +
+                ", 'enderecoMac':'" + enderecoMac + '\'' +
+                ", 'enderecoIp':'" + enderecoIp + '\'' +
+                ", 'mascaraSubRede':'" + mascaraSubRede + '\'' +
                 '}';
     }
 }

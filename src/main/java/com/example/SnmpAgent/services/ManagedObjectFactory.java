@@ -60,7 +60,7 @@ public class ManagedObjectFactory {
 
     private static Variable getVariable(Object value) {
 
-        if (value instanceof String || value instanceof Float || value instanceof Double || value instanceof ArrayList) {
+        if (value instanceof String || value instanceof Float || value instanceof Double || value instanceof ArrayList || value instanceof Long) {
             return new OctetString(value.toString());
         } else if (value instanceof Integer) {
             return new Integer32((Integer) value);

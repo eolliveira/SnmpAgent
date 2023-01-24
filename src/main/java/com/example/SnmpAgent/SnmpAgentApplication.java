@@ -26,7 +26,7 @@ public class SnmpAgentApplication {
             // register the custom mib information
             agentReceiver.registerCustomMIB();
 
-            System.out.println("AgentSNMP ouvindo na porta 161");
+            System.out.println("AgentSNMP Windows ouvindo na porta 161...");
 
             // apenas continue executando o processo
             // em um cenário normal, o agente será instanciado em um processo vivo
