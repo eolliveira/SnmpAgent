@@ -196,6 +196,7 @@ public class SnmpAgentReceiver extends BaseAgent {
         // this is the OID
         String customMibOid = ".1.3.6.1.4.1.12345";
 
+
         // register all custom MIB data
 
         // general
