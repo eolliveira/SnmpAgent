@@ -9,6 +9,8 @@ import org.snmp4j.smi.OID;
 import org.snmp4j.smi.OctetString;
 import org.snmp4j.smi.Variable;
 
+import java.util.ArrayList;
+
 public class ManagedObjectFactory {
 
     public static MOScalar createReadOnly(String oid, Object value) {
@@ -58,7 +60,7 @@ public class ManagedObjectFactory {
 
     private static Variable getVariable(Object value) {
 
-        if (value instanceof String || value instanceof Float || value instanceof Double) {
+        if (value instanceof String || value instanceof Float || value instanceof Double || value instanceof ArrayList) {
             return new OctetString(value.toString());
         } else if (value instanceof Integer) {
             return new Integer32((Integer) value);

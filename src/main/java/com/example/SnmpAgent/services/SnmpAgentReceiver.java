@@ -1,5 +1,6 @@
 package com.example.SnmpAgent.services;
 
+import com.example.SnmpAgent.objects.InterfaceObject;
 import org.snmp4j.TransportMapping;
 import org.snmp4j.agent.*;
 import org.snmp4j.agent.mo.snmp.*;
@@ -12,6 +13,7 @@ import org.snmp4j.smi.*;
 import org.snmp4j.transport.TransportMappings;
 import oshi.SystemInfo;
 import oshi.hardware.HardwareAbstractionLayer;
+import oshi.hardware.NetworkIF;
 import oshi.software.os.OperatingSystem;
 
 import java.io.File;
@@ -19,6 +21,9 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class SnmpAgentReceiver extends BaseAgent {
     private String address;
@@ -203,53 +208,32 @@ public class SnmpAgentReceiver extends BaseAgent {
         OperatingSystem os = si.getOperatingSystem();
 
 
-        System.out.println("SO: " + os);
+        //lista de dns
+        String[] dnsList = os.getNetworkParams().getDnsServers();
+        List<String> interfaces = new ArrayList<>();
+        System.out.println("DNS: " );
+        for (String dns : dnsList) {
+            interfaces.add(dns);
+            System.out.println(dns);
+        }
         System.out.println("---------");
 
-        System.out.println("Arquitetura: " + os.getBitness());
-        System.out.println("---------");
 
-        System.out.println("fabricante: " + hal.getComputerSystem().getManufacturer());
-        System.out.println("---------");
 
-        System.out.println("modelo: " + hal.getComputerSystem().getModel());
-        System.out.println("---------");
 
-        System.out.println("SerialNumber : " + hal.getComputerSystem().getSerialNumber());
-        System.out.println("------------");
 
-        System.out.println("Processador: " + hal.getProcessor());
-        System.out.println("---------");
 
-        System.out.println("memeoria ram: " +  hal.getMemory().getTotal());
-        System.out.println("---------+++o ");
+        //lista de interfaces
+        List<InterfaceObject> listInterface = new ArrayList<>();
+        for (NetworkIF dns : hal.getNetworkIFs()) {
+            InterfaceObject obj = new InterfaceObject(dns.getName(), dns.getDisplayName(), dns.getMacaddr(), dns.getIPv4addr(), dns.getMacaddr());
+            listInterface.add(obj);
+        }
 
-        System.out.println("hostname: " + os.getNetworkParams().getHostName());
-        System.out.println("---------");
+        for (InterfaceObject obj : listInterface) {
+            System.out.println(obj.toString());
+        }
 
-        System.out.println("dominio: " + os.getNetworkParams().getDomainName());
-        System.out.println("---------");
-
-        System.out.println("Gateway: " + os.getNetworkParams().getIpv4DefaultGateway());
-        System.out.println("---------");
-
-        System.out.println("DNS1: " + os.getNetworkParams().getDnsServers()[0] );
-        System.out.println("---------");
-
-        System.out.println("DNS2: " + os.getNetworkParams().getDnsServers()[1] );
-        System.out.println("---------");
-
-          String ipAddress = "";
-          for(String s : hal.getNetworkIFs().get(1).getIPv4addr()){
-              ipAddress = ipAddress + s;
-          }
-        //interface - index 1
-        System.out.println("IpAddress: " + ipAddress);
-        System.out.println("---------");
-
-        //interface - index 1
-        System.out.println("MAC Address: " + hal.getNetworkIFs().get(1).getMacaddr());
-        System.out.println("---------");
 
 
         registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".1.1.0", os.toString() ));
@@ -259,16 +243,12 @@ public class SnmpAgentReceiver extends BaseAgent {
         registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".1.5.0", hal.getComputerSystem().getSerialNumber()));
         registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".1.6.0", hal.getProcessor().toString()));
         registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".2.1.0", hal.getMemory().toString())); //memoria
-
         registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".2.2.1.0", os.getNetworkParams().getHostName())); //hostname
         registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".2.2.2.0", os.getNetworkParams().getDomainName())); //dominio
         registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".2.2.3.0", os.getNetworkParams().getIpv4DefaultGateway())); //gateway
 
-        registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".2.2.4.0", os.getNetworkParams().getDnsServers()[0])); //dns1
-        registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".2.2.5.0", os.getNetworkParams().getDnsServers()[1])); //dns2
-
-        registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".2.2.6.0", ipAddress)); //ip
-        registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".2.2.7.0", hal.getNetworkIFs().get(1).getMacaddr())); //mac
+        registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".2.2.4.0", interfaces)); //dns1
+        registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".2.2.6.0", listInterface)); //ip
 
 
 
