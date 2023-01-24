@@ -17,7 +17,6 @@ import oshi.software.os.OperatingSystem;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 public class SnmpAgentReceiver extends BaseAgent {
@@ -236,8 +235,10 @@ public class SnmpAgentReceiver extends BaseAgent {
         System.out.println("DNS1: " + os.getNetworkParams().getDnsServers()[0] );
         System.out.println("---------");
 
-        System.out.println("DNS2: " + os.getNetworkParams().getDnsServers()[1] );
-        System.out.println("---------");
+
+        //verificar dns null
+//        System.out.println("DNS2: " + os.getNetworkParams().getDnsServers()[1]);
+//        System.out.println("---------");
 
           String ipAddress = "";
           for(String s : hal.getNetworkIFs().get(1).getIPv4addr()){
@@ -265,7 +266,7 @@ public class SnmpAgentReceiver extends BaseAgent {
         registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".2.2.3.0", os.getNetworkParams().getIpv4DefaultGateway())); //gateway
 
         registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".2.2.4.0", os.getNetworkParams().getDnsServers()[0])); //dns1
-        registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".2.2.5.0", os.getNetworkParams().getDnsServers()[1])); //dns2
+        //registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".2.2.5.0", os.getNetworkParams().getDnsServers()[1])); //dns2
 
         registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".2.2.6.0", ipAddress)); //ip
         registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".2.2.7.0", hal.getNetworkIFs().get(1).getMacaddr())); //mac
