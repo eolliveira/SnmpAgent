@@ -12,12 +12,25 @@ public class InterfaceObject {
 
     public InterfaceObject(){}
 
-    public InterfaceObject(String nameLocal, String nomeFabricante, String enderecoMac, String[] enderecoIp, String mascaraSubRede) {
-        this.nomeLocal = nameLocal;
-        this.nomeFabricante = nomeFabricante;
-        this.enderecoMac = enderecoMac;
-        this.enderecoIp = Arrays.toString(enderecoIp);
-        this.mascaraSubRede = mascaraSubRede;
+    public InterfaceObject(String name, String displayName, String macaddr, String[] iPv4addr, Short[] subnetMasks) {
+        this.nomeLocal = name;
+        this.nomeFabricante = displayName;
+        this.enderecoMac = macaddr;
+
+        //converte ip
+        String ipAddress = "";
+        for (String s: iPv4addr) {
+            ipAddress = ipAddress + s;
+        }
+
+        //converte mascara de rede
+        String mask = "";
+        for (Short m: subnetMasks) {
+            mask = mask + m.shortValue();
+        }
+
+        this.enderecoIp = ipAddress;
+        this.mascaraSubRede = mask;
     }
 
     public String getNomeLocal() {
