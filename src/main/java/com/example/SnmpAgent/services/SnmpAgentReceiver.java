@@ -18,30 +18,26 @@ import oshi.software.os.OperatingSystem;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class SnmpAgentReceiver extends BaseAgent {
     private String address;
 
     // Example: new SnmpAgentReceiver("0.0.0.0/161");
-    public SnmpAgentReceiver(String address) throws IOException {
+    public SnmpAgentReceiver(String address) {
 
 
-         /*
-          * Cria um agente base com contador de inicialização, arquivo de configuração e um
-          * CommandProcessor para processamento de solicitações SNMP. Parâmetros:
-          * "bootCounterFile" - um arquivo com informações serializadas do contador de inicialização
-          * (ler escrever). Se o arquivo não existir, ele será criado no desligamento do
-          * o agente. "configFile" - um arquivo com configuração serializada
-          * informações (ler/escrever). Se o arquivo não existir, ele é criado em
-          * encerramento do agente. "commandProcessor" - o CommandProcessor
-          * instância que lida com as solicitações SNMP.
-          * */
+        /*
+         * Cria um agente base com contador de inicialização, arquivo de configuração e um
+         * CommandProcessor para processamento de solicitações SNMP. Parâmetros:
+         * "bootCounterFile" - um arquivo com informações serializadas do contador de inicialização
+         * (ler escrever). Se o arquivo não existir, ele será criado no desligamento do
+         * o agente. "configFile" - um arquivo com configuração serializada
+         * informações (ler/escrever). Se o arquivo não existir, ele é criado em
+         * encerramento do agente. "commandProcessor" - o CommandProcessor
+         * instância que lida com as solicitações SNMP.
+         * */
         super(
                 new File("conf.agent"),
                 new File("bootCounter.agent"),
@@ -51,8 +47,7 @@ public class SnmpAgentReceiver extends BaseAgent {
     }
 
 
-
-     //Adiciona a comunidade aos mapeamentos de nomes de segurança necessários para SNMPv1 e SNMPv2c.
+    //Adiciona a comunidade aos mapeamentos de nomes de segurança necessários para SNMPv1 e SNMPv2c.
     @Override
     protected void addCommunities(SnmpCommunityMIB communityMIB) {
 
@@ -73,7 +68,7 @@ public class SnmpAgentReceiver extends BaseAgent {
     }
 
 
-     //Adiciona alvos e filtros de notificação iniciais.
+    //Adiciona alvos e filtros de notificação iniciais.
     @Override
     protected void addNotificationTargets(SnmpTargetMIB arg0, SnmpNotificationMIB arg1) {
     }
@@ -86,7 +81,7 @@ public class SnmpAgentReceiver extends BaseAgent {
     }
 
 
-     // Adiciona a configuração inicial do VACM.
+    // Adiciona a configuração inicial do VACM.
     @Override
     protected void addViews(VacmMIB vacm) {
 
@@ -125,16 +120,12 @@ public class SnmpAgentReceiver extends BaseAgent {
         );
     }
 
-    /**
-     * Unregister the basic MIB modules from the agent's MOServer.
-     */
+
     @Override
     protected void unregisterManagedObjects() {
     }
 
-    /**
-     * Register additional managed objects at the agent's server.
-     */
+
     @Override
     protected void registerManagedObjects() {
     }
@@ -145,12 +136,8 @@ public class SnmpAgentReceiver extends BaseAgent {
         transportMappings[0] = TransportMappings.getInstance().createTransportMapping(GenericAddress.parse(address));
     }
 
-    /**
-     * Start method invokes some initialization methods needed to start the agent
-     */
     public void start() throws IOException {
         init();
-        // loadConfig(ImportModes.REPLACE_CREATE);  // This method reads some old config from a file and causes unexpected behavior.
         addShutdownHook();
         getServer().addContext(new OctetString("public"));
         finishInit();
@@ -158,9 +145,7 @@ public class SnmpAgentReceiver extends BaseAgent {
         sendColdStartNotification();
     }
 
-    /**
-     * Clients can register the MO they need
-     */
+
     public void registerManagedObject(ManagedObject mo) {
         try {
             server.register(mo, null);
@@ -173,25 +158,11 @@ public class SnmpAgentReceiver extends BaseAgent {
         moGroup.unregisterMOs(server, getContext(moGroup));
     }
 
-    public void registerCustomMIB() throws UnknownHostException, UnsupportedEncodingException {
+    public void registerCustomMIB() {
 
-        // não há necessidade de responder por OIDs padrão carregados pela classe base
+
         unregisterManagedObject(getSnmpv2MIB());
 
-        /*
-            custom 1.3.6.1.4.1.12345
-            iso(1).org(3).dod(6).internet(1).private(4).enterprises(1).12345
-
-            .1 general
-                .1 generalGreeting OCTET STRING
-                .2 generalRandom Integer32
-            .2 date
-                .1 dateString OCTET STRING
-                .2 dateParts
-                    .1 datePartsDay Integer32
-                    .2 datePartsMonth Integer32
-                    .3 datePartsYear Integer32
-         */
 
         // this is the OID
         String customMibOid = ".1.3.6.1.4.1.12345";
@@ -199,7 +170,6 @@ public class SnmpAgentReceiver extends BaseAgent {
 
         // register all custom MIB data
 
-        // general
 
         System.out.println();
 
@@ -224,8 +194,8 @@ public class SnmpAgentReceiver extends BaseAgent {
         }
 
 
-        registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".1.1.0", os.toString() ));
-        registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".1.2.0", os.getBitness() ));
+        registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".1.1.0", os.toString()));
+        registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".1.2.0", os.getBitness()));
         registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".1.3.0", hal.getComputerSystem().getManufacturer()));
         registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".1.4.0", hal.getComputerSystem().getModel()));
         registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".1.5.0", hal.getComputerSystem().getSerialNumber()));
@@ -234,7 +204,6 @@ public class SnmpAgentReceiver extends BaseAgent {
         registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".2.2.1.0", os.getNetworkParams().getHostName())); //hostname
         registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".2.2.2.0", os.getNetworkParams().getDomainName())); //dominio
         registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".2.2.3.0", os.getNetworkParams().getIpv4DefaultGateway())); //gateway
-
         registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".2.2.4.0", dnsList)); //lista servidore
         registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".2.2.6.0", listInterface)); //listaa de interfaces
 

@@ -6,7 +6,7 @@ import java.util.List;
 public class WindowsObject {
 
     private String os;
-    private String architectureSo;
+    private String osArchitecture;
     private String manufacturer;
     private String model;
     private String serialNumber;
@@ -14,14 +14,11 @@ public class WindowsObject {
     private String ramMemory;
     private String hostname;
     private String domain;
-    private String ipAdrress;
-    private String macAddress;
     private String gateway;
-    private String primaryDns;
-    private String secondaryDns;
     private List<InterfaceObject> intefaces = new ArrayList<>();
 
-    public WindowsObject() {}
+    public WindowsObject() {
+    }
 
     public String getOs() {
         return os;
@@ -31,12 +28,12 @@ public class WindowsObject {
         this.os = os;
     }
 
-    public String getArchitectureSo() {
-        return architectureSo;
+    public String getOsArchitecture() {
+        return osArchitecture;
     }
 
-    public void setArchitectureSo(String architectureSo) {
-        this.architectureSo = architectureSo;
+    public void setOsArchitecture(String osArchitecture) {
+        this.osArchitecture = osArchitecture;
     }
 
     public String getManufacturer() {
@@ -95,22 +92,6 @@ public class WindowsObject {
         this.domain = domain;
     }
 
-    public String getIpAdrress() {
-        return ipAdrress;
-    }
-
-    public void setIpAdrress(String ipAdrress) {
-        this.ipAdrress = ipAdrress;
-    }
-
-    public String getMacAddress() {
-        return macAddress;
-    }
-
-    public void setMacAddress(String macAddress) {
-        this.macAddress = macAddress;
-    }
-
     public String getGateway() {
         return gateway;
     }
@@ -119,23 +100,9 @@ public class WindowsObject {
         this.gateway = gateway;
     }
 
-    public String getPrimaryDns() {
-        return primaryDns;
-    }
-
-    public void setPrimaryDns(String primaryDns) {
-        this.primaryDns = primaryDns;
-    }
-
-    public String getSecondaryDns() {
-        return secondaryDns;
-    }
-
-    public void setSecondaryDns(String secondaryDns) {
-        this.secondaryDns = secondaryDns;
-    }
-
     public List<InterfaceObject> getIntefaces() {
         return intefaces;
     }
+
+
 }

@@ -47,9 +47,7 @@ public class ManagedObjectFactory {
         CustomManagedObject mo = null;
 
         try {
-            mo = (CustomManagedObject) Class.forName("com.example.SnmpAgent.model." + capitalize(objectName))
-                    .getConstructor(OID.class, MOAccess.class)
-                    .newInstance(oid, access);
+            mo = (CustomManagedObject) Class.forName("com.example.SnmpAgent.model." + capitalize(objectName)).getConstructor(OID.class, MOAccess.class).newInstance(oid, access);
 
         } catch (Exception e) {
             // nothing to do
