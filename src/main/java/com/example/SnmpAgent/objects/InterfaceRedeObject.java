@@ -1,8 +1,8 @@
 package com.example.SnmpAgent.objects;
 
-import java.util.Arrays;
+import java.io.Serializable;
 
-public class InterfaceObject {
+public class InterfaceRedeObject implements Serializable {
 
     private String nomeLocal;
     private String nomeFabricante;
@@ -10,9 +10,9 @@ public class InterfaceObject {
     private String enderecoIp;
     private String mascaraSubRede;
 
-    public InterfaceObject(){}
+    public InterfaceRedeObject(){}
 
-    public InterfaceObject(String name, String displayName, String macaddr, String[] iPv4addr, Short[] subnetMasks) {
+    public InterfaceRedeObject(String name, String displayName, String macaddr, String[] iPv4addr, Short[] subnetMasks) {
         this.nomeLocal = name;
         this.nomeFabricante = displayName;
         this.enderecoMac = macaddr;
@@ -81,6 +81,6 @@ public class InterfaceObject {
                 ", 'enderecoMac':'" + enderecoMac + '\'' +
                 ", 'enderecoIp':'" + enderecoIp + '\'' +
                 ", 'mascaraSubRede':'" + mascaraSubRede + '\'' +
-                '}';
+                "}";
     }
 }

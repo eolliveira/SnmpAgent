@@ -15,7 +15,7 @@ public class WindowsObject {
     private String hostname;
     private String domain;
     private String gateway;
-    private List<InterfaceObject> intefaces = new ArrayList<>();
+    private List<InterfaceRedeObject> intefaces = new ArrayList<>();
 
     public WindowsObject() {
     }
@@ -100,9 +100,8 @@ public class WindowsObject {
         this.gateway = gateway;
     }
 
-    public List<InterfaceObject> getIntefaces() {
+    public List<InterfaceRedeObject> getIntefaces() {
         return intefaces;
     }
-
 
 }
