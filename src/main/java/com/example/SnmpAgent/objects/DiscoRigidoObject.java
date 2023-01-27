@@ -71,10 +71,9 @@ public class DiscoRigidoObject implements Serializable {
 
     @Override
     public String toString() {
-
         return "{" +
                 "'nome':'" + nome + '\'' +
-                ", 'modelo':'" + "modelo" + '\'' +
+                ", 'modelo':'" + modelo + '\'' +
                 ", 'numeroSerie':'" + numeroSerie + '\'' +
                 ", 'capacidade':'" + capacidade + '\'' +
                 ", 'usado':'" + usado + '\'' +

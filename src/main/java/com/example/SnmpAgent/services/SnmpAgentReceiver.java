@@ -1,7 +1,8 @@
 package com.example.SnmpAgent.services;
 
-import com.example.SnmpAgent.objects.DiscoRigidoObject;
-import com.example.SnmpAgent.objects.InterfaceRedeObject;
+import com.example.SnmpAgent.converters.WindowsConverter;
+import com.example.SnmpAgent.mibs.WindowsMIB;
+import com.example.SnmpAgent.objects.WindowsObject;
 import org.snmp4j.TransportMapping;
 import org.snmp4j.agent.*;
 import org.snmp4j.agent.mo.snmp.*;
@@ -12,16 +13,9 @@ import org.snmp4j.security.SecurityModel;
 import org.snmp4j.security.USM;
 import org.snmp4j.smi.*;
 import org.snmp4j.transport.TransportMappings;
-import oshi.SystemInfo;
-import oshi.hardware.HWDiskStore;
-import oshi.hardware.HardwareAbstractionLayer;
-import oshi.hardware.NetworkIF;
-import oshi.software.os.OperatingSystem;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class SnmpAgentReceiver extends BaseAgent {
     private String address;
@@ -163,66 +157,29 @@ public class SnmpAgentReceiver extends BaseAgent {
 
         unregisterManagedObject(getSnmpv2MIB());
 
-        // this is the OID
-        String customMibOid = ".1.3.6.1.4.1.12345";
-
-        // register all custom MIB data
-
         System.out.println();
 
-        SystemInfo si = new SystemInfo();
+        WindowsMIB mib = new WindowsMIB();
+        WindowsConverter converter = new WindowsConverter();
+        WindowsObject win = converter.getConvertedData();
 
-        HardwareAbstractionLayer hal = si.getHardware();
-        OperatingSystem os = si.getOperatingSystem();
+        // register all custom MIB data
+        registerManagedObject(ManagedObjectFactory.createReadOnly(mib.SO_OID, win.getOs()));
+        registerManagedObject(ManagedObjectFactory.createReadOnly(mib.ARQUITETURA_SO_OID, win.getOsArchitecture()));
+        registerManagedObject(ManagedObjectFactory.createReadOnly(mib.FABRICANTE_OID, win.getManufacturer()));
+        registerManagedObject(ManagedObjectFactory.createReadOnly(mib.MODELO_OID, win.getModel()));
+        registerManagedObject(ManagedObjectFactory.createReadOnly(mib.NUMERO_SERIE_OID, win.getSerialNumber()));
+        registerManagedObject(ManagedObjectFactory.createReadOnly(mib.PROCESSADOR_OID, win.getProcessor()));
+        registerManagedObject(ManagedObjectFactory.createReadOnly(mib.MEMORIA_RAM_OID, win.getRamMemory()));
+        registerManagedObject(ManagedObjectFactory.createReadOnly(mib.NOME_OID, win.getHostname()));
+        registerManagedObject(ManagedObjectFactory.createReadOnly(mib.DOMINIO_OID, win.getDomain()));
+        registerManagedObject(ManagedObjectFactory.createReadOnly(mib.GATEWAY_OID, win.getGateway()));
+        registerManagedObject(ManagedObjectFactory.createReadOnly(mib.DNS_OID, win.getDnsList()));
+        registerManagedObject(ManagedObjectFactory.createReadOnly(mib.USUARIO_LOGADO_OID, win.getLastUserloggedIn()));
+        registerManagedObject(ManagedObjectFactory.createReadOnly(mib.INTERFACES_OID, win.getIntefaces()));
+        registerManagedObject(ManagedObjectFactory.createReadOnly(mib.DISCO_RIGIDO_OID, win.getDisks()));
 
-        String x = hal.getProcessor().toString();
-        int index = x.indexOf("\n");
-        String processsor = x.substring(0, index);
-
-        String y = hal.getMemory().toString();
-        int init = y.indexOf("/");
-        String ramMemory = y.substring(init + 1, y.length() - 4);
-
-
-        //lista de dns
-        String[] dnsServers = os.getNetworkParams().getDnsServers();
-        List<String> dnsList = new ArrayList<>();
-        for (String dns : dnsServers) {
-            dnsList.add(dns);
-        }
-
-        //lista de interfaces
-        List<InterfaceRedeObject> listInterface = new ArrayList<>();
-        for (NetworkIF dns : hal.getNetworkIFs()) {
-            InterfaceRedeObject obj = new InterfaceRedeObject(dns.getName(), dns.getDisplayName(), dns.getMacaddr(), dns.getIPv4addr(), dns.getSubnetMasks());
-            listInterface.add(obj);
-        }
-
-        //lista de discos
-        List<DiscoRigidoObject> listaDiscos = new ArrayList<>();
-        for (HWDiskStore disc : hal.getDiskStores()) {
-            DiscoRigidoObject obj2 = new DiscoRigidoObject(disc.getName().substring(4), disc.getModel(), disc.getSerial(), disc.getSize(), disc.getReads(), disc.getWrites());
-            listaDiscos.add(obj2);
-        }
-
-        System.out.println(hal.getDiskStores().get(1).getSize());
-
-        registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".1.1.0", os.toString()));
-        registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".1.2.0", os.getBitness() + "bits"));
-        registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".1.3.0", hal.getComputerSystem().getManufacturer()));
-        registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".1.4.0", hal.getComputerSystem().getModel()));
-        registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".1.5.0", hal.getComputerSystem().getSerialNumber()));
-        registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".1.6.0", processsor));
-        registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".2.1.0", ramMemory + " Gb")); //memoria
-        registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".2.2.1.0", os.getNetworkParams().getHostName())); //hostname
-        registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".2.2.2.0", os.getNetworkParams().getDomainName())); //dominio
-        registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".2.2.3.0", os.getNetworkParams().getIpv4DefaultGateway())); //gateway
-        registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".2.2.4.0", dnsList)); //lista servidore
-        registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".2.2.5.0", System.getProperty("user.name"))); //usuario logado
-        registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".2.2.6.0", listInterface)); //listaa de interfaces
-        registerManagedObject(ManagedObjectFactory.createReadOnly(customMibOid + ".2.2.7.0", listaDiscos)); //lista de discos
     }
-
 
 }
 

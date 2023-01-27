@@ -6,7 +6,7 @@ import java.util.List;
 public class WindowsObject {
 
     private String os;
-    private String osArchitecture;
+    private Integer osArchitecture;
     private String manufacturer;
     private String model;
     private String serialNumber;
@@ -15,9 +15,23 @@ public class WindowsObject {
     private String hostname;
     private String domain;
     private String gateway;
+
+    private List<String> dnsList;
+
+    private String lastUserloggedIn;
     private List<InterfaceRedeObject> intefaces = new ArrayList<>();
 
+    private List<DiscoRigidoObject> disks = new ArrayList<>();
+
     public WindowsObject() {
+    }
+
+    public List<String> getDnsList() {
+        return dnsList;
+    }
+
+    public void setDnsList(List<String> dnsList) {
+        this.dnsList = dnsList;
     }
 
     public String getOs() {
@@ -28,11 +42,11 @@ public class WindowsObject {
         this.os = os;
     }
 
-    public String getOsArchitecture() {
+    public Integer getOsArchitecture() {
         return osArchitecture;
     }
 
-    public void setOsArchitecture(String osArchitecture) {
+    public void setOsArchitecture(Integer osArchitecture) {
         this.osArchitecture = osArchitecture;
     }
 
@@ -100,8 +114,27 @@ public class WindowsObject {
         this.gateway = gateway;
     }
 
+    public String getLastUserloggedIn() {
+        return lastUserloggedIn;
+    }
+
+    public void setLastUserloggedIn(String lastUserloggedIn) {
+        this.lastUserloggedIn = lastUserloggedIn;
+    }
+
     public List<InterfaceRedeObject> getIntefaces() {
         return intefaces;
     }
 
+    public void setIntefaces(List<InterfaceRedeObject> intefaces) {
+        this.intefaces = intefaces;
+    }
+
+    public List<DiscoRigidoObject> getDisks() {
+        return disks;
+    }
+
+    public void setDisks(List<DiscoRigidoObject> disks) {
+        this.disks = disks;
+    }
 }
