@@ -41,14 +41,25 @@ public class WindowsConverter {
         //lista de interfaces
         List<InterfaceRedeObject> listInterface = new ArrayList<>();
         for (NetworkIF dns : hal.getNetworkIFs()) {
-            InterfaceRedeObject obj = new InterfaceRedeObject(dns.getName(), dns.getDisplayName(), dns.getMacaddr(), dns.getIPv4addr(), dns.getSubnetMasks());
+            InterfaceRedeObject obj = new InterfaceRedeObject(
+                    dns.getName(),
+                    dns.getDisplayName(),
+                    dns.getMacaddr(),
+                    dns.getIPv4addr(),
+                    dns.getSubnetMasks());
             listInterface.add(obj);
         }
 
         //lista de discos
         List<DiscoRigidoObject> listaDiscos = new ArrayList<>();
         for (HWDiskStore disc : hal.getDiskStores()) {
-            DiscoRigidoObject obj2 = new DiscoRigidoObject(disc.getName().substring(4), "disc.getModel()", disc.getSerial(), disc.getSize(), disc.getReads(), disc.getWrites());
+            DiscoRigidoObject obj2 = new DiscoRigidoObject(
+                    disc.getName().substring(4),
+                    "disc.getModel()",
+                    disc.getSerial(),
+                    disc.getSize(),
+                    disc.getReads(),
+                    disc.getWrites());
             listaDiscos.add(obj2);
         }
 
