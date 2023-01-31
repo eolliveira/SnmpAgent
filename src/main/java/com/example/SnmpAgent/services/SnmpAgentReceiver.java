@@ -13,6 +13,9 @@ import org.snmp4j.security.SecurityModel;
 import org.snmp4j.security.USM;
 import org.snmp4j.smi.*;
 import org.snmp4j.transport.TransportMappings;
+import oshi.SystemInfo;
+import oshi.hardware.HardwareAbstractionLayer;
+import oshi.software.os.OperatingSystem;
 
 import java.io.File;
 import java.io.IOException;
@@ -178,6 +181,17 @@ public class SnmpAgentReceiver extends BaseAgent {
         registerManagedObject(ManagedObjectFactory.createReadOnly(mib.USUARIO_LOGADO_OID, win.getLastUserloggedIn()));
         registerManagedObject(ManagedObjectFactory.createReadOnly(mib.INTERFACES_OID, win.getIntefaces()));
         registerManagedObject(ManagedObjectFactory.createReadOnly(mib.DISCO_RIGIDO_OID, win.getDisks()));
+
+        //teste
+
+        WindowsObject windows = new WindowsObject();
+        SystemInfo si = new SystemInfo();
+        HardwareAbstractionLayer hal = si.getHardware();
+        OperatingSystem os = si.getOperatingSystem();
+
+
+        System.out.println(win.getDisks());
+
 
     }
 

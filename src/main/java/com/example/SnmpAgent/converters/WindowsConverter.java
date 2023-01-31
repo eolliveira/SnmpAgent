@@ -2,9 +2,11 @@ package com.example.SnmpAgent.converters;
 
 import com.example.SnmpAgent.objects.DiscoRigidoObject;
 import com.example.SnmpAgent.objects.InterfaceRedeObject;
+import com.example.SnmpAgent.objects.ParticaoObject;
 import com.example.SnmpAgent.objects.WindowsObject;
 import oshi.SystemInfo;
 import oshi.hardware.HWDiskStore;
+import oshi.hardware.HWPartition;
 import oshi.hardware.HardwareAbstractionLayer;
 import oshi.hardware.NetworkIF;
 import oshi.software.os.OperatingSystem;
@@ -52,6 +54,7 @@ public class WindowsConverter {
 
         //lista de discos
         List<DiscoRigidoObject> listaDiscos = new ArrayList<>();
+        List<ParticaoObject> particoes = new ArrayList<>();
         for (HWDiskStore disc : hal.getDiskStores()) {
             DiscoRigidoObject obj2 = new DiscoRigidoObject(
                     disc.getName().substring(4),
@@ -60,6 +63,13 @@ public class WindowsConverter {
                     disc.getSize(),
                     disc.getReads(),
                     disc.getWrites());
+            for(HWPartition partition : disc.getPartitions()) {
+                ParticaoObject part = new ParticaoObject(
+                        partition.getMountPoint(),
+                        partition.getSize());
+                obj2.getParticoes().add(part);
+            }
+
             listaDiscos.add(obj2);
         }
 

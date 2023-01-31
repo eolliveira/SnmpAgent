@@ -1,6 +1,8 @@
 package com.example.SnmpAgent.objects;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DiscoRigidoObject implements Serializable {
     private String nome;
@@ -9,6 +11,8 @@ public class DiscoRigidoObject implements Serializable {
     private String capacidade;
     private String usado;
     private String disponivel;
+
+    private List<ParticaoObject> particoes = new ArrayList<>();
 
     public DiscoRigidoObject(){}
 
@@ -69,6 +73,15 @@ public class DiscoRigidoObject implements Serializable {
         this.disponivel = disponivel;
     }
 
+
+    public List<ParticaoObject> getParticoes() {
+        return particoes;
+    }
+
+    public void setParticoes(List<ParticaoObject> particoes) {
+        this.particoes = particoes;
+    }
+
     @Override
     public String toString() {
         return "{" +
@@ -78,6 +91,8 @@ public class DiscoRigidoObject implements Serializable {
                 ", 'capacidade':'" + capacidade + '\'' +
                 ", 'usado':'" + usado + '\'' +
                 ", 'disponivel':'" + disponivel + '\'' +
+                ", 'particoes':" + particoes +
                 "}";
     }
+
 }
