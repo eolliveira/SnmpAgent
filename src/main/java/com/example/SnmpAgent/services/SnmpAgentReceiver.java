@@ -167,20 +167,20 @@ public class SnmpAgentReceiver extends BaseAgent {
         WindowsObject win = converter.getConvertedData();
 
         // register all custom MIB data
-        registerManagedObject(ManagedObjectFactory.createReadOnly(mib.SO_OID, win.getOs()));
-        registerManagedObject(ManagedObjectFactory.createReadOnly(mib.ARQUITETURA_SO_OID, win.getOsArchitecture()));
-        registerManagedObject(ManagedObjectFactory.createReadOnly(mib.FABRICANTE_OID, win.getManufacturer()));
-        registerManagedObject(ManagedObjectFactory.createReadOnly(mib.MODELO_OID, win.getModel()));
-        registerManagedObject(ManagedObjectFactory.createReadOnly(mib.NUMERO_SERIE_OID, win.getSerialNumber()));
-        registerManagedObject(ManagedObjectFactory.createReadOnly(mib.PROCESSADOR_OID, win.getProcessor()));
-        registerManagedObject(ManagedObjectFactory.createReadOnly(mib.MEMORIA_RAM_OID, win.getRamMemory()));
-        registerManagedObject(ManagedObjectFactory.createReadOnly(mib.NOME_OID, win.getHostname()));
-        registerManagedObject(ManagedObjectFactory.createReadOnly(mib.DOMINIO_OID, win.getDomain()));
+        registerManagedObject(ManagedObjectFactory.createReadOnly(mib.SO_OID, win.getSistemaOperacional()));
+        registerManagedObject(ManagedObjectFactory.createReadOnly(mib.ARQUITETURA_SO_OID, win.getArquiteturaSo()));
+        registerManagedObject(ManagedObjectFactory.createReadOnly(mib.FABRICANTE_OID, win.getFabricante()));
+        registerManagedObject(ManagedObjectFactory.createReadOnly(mib.MODELO_OID, win.getModelo()));
+        registerManagedObject(ManagedObjectFactory.createReadOnly(mib.NUMERO_SERIE_OID, win.getNumeroSerie()));
+        registerManagedObject(ManagedObjectFactory.createReadOnly(mib.PROCESSADOR_OID, win.getProcessador()));
+        registerManagedObject(ManagedObjectFactory.createReadOnly(mib.MEMORIA_RAM_OID, win.getMemoriaRam()));
+        registerManagedObject(ManagedObjectFactory.createReadOnly(mib.NOME_OID, win.getNomeHost()));
+        registerManagedObject(ManagedObjectFactory.createReadOnly(mib.DOMINIO_OID, win.getDominio()));
         registerManagedObject(ManagedObjectFactory.createReadOnly(mib.GATEWAY_OID, win.getGateway()));
         registerManagedObject(ManagedObjectFactory.createReadOnly(mib.DNS_OID, win.getDnsList()));
-        registerManagedObject(ManagedObjectFactory.createReadOnly(mib.USUARIO_LOGADO_OID, win.getLastUserloggedIn()));
+        registerManagedObject(ManagedObjectFactory.createReadOnly(mib.USUARIO_LOGADO_OID, win.getUltimoUsuarioLogado()));
         registerManagedObject(ManagedObjectFactory.createReadOnly(mib.INTERFACES_OID, win.getIntefaces()));
-        registerManagedObject(ManagedObjectFactory.createReadOnly(mib.DISCO_RIGIDO_OID, win.getDisks()));
+        registerManagedObject(ManagedObjectFactory.createReadOnly(mib.DISCO_RIGIDO_OID, win.getDiscos()));
 
         //teste
 
@@ -190,7 +190,7 @@ public class SnmpAgentReceiver extends BaseAgent {
         OperatingSystem os = si.getOperatingSystem();
 
 
-        System.out.println(win.getDisks());
+        System.out.println(hal.getDiskStores());
 
 
     }

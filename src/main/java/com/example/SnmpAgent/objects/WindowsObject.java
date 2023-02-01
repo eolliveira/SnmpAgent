@@ -5,23 +5,21 @@ import java.util.List;
 
 public class WindowsObject {
 
-    private String os;
-    private Integer osArchitecture;
-    private String manufacturer;
-    private String model;
-    private String serialNumber;
-    private String processor;
-    private String ramMemory;
-    private String hostname;
-    private String domain;
+    private String sistemaOperacional;
+    private Integer arquiteturaSo;
+    private String fabricante;
+    private String modelo;
+    private String numeroSerie;
+    private String processador;
+    private String memoriaRam;
+    private String nomeHost;
+    private String dominio;
     private String gateway;
-
+    private String ultimoUsuarioLogado;
     private List<String> dnsList;
-
-    private String lastUserloggedIn;
     private List<InterfaceRedeObject> intefaces = new ArrayList<>();
 
-    private List<DiscoRigidoObject> disks = new ArrayList<>();
+    private List<DiscoRigidoObject> discos = new ArrayList<>();
 
     public WindowsObject() {
     }
@@ -34,76 +32,76 @@ public class WindowsObject {
         this.dnsList = dnsList;
     }
 
-    public String getOs() {
-        return os;
+    public String getSistemaOperacional() {
+        return sistemaOperacional;
     }
 
-    public void setOs(String os) {
-        this.os = os;
+    public void setSistemaOperacional(String sistemaOperacional) {
+        this.sistemaOperacional = sistemaOperacional;
     }
 
-    public Integer getOsArchitecture() {
-        return osArchitecture;
+    public Integer getArquiteturaSo() {
+        return arquiteturaSo;
     }
 
-    public void setOsArchitecture(Integer osArchitecture) {
-        this.osArchitecture = osArchitecture;
+    public void setArquiteturaSo(Integer arquiteturaSo) {
+        this.arquiteturaSo = arquiteturaSo;
     }
 
-    public String getManufacturer() {
-        return manufacturer;
+    public String getFabricante() {
+        return fabricante;
     }
 
-    public void setManufacturer(String manufacturer) {
-        this.manufacturer = manufacturer;
+    public void setFabricante(String fabricante) {
+        this.fabricante = fabricante;
     }
 
-    public String getModel() {
-        return model;
+    public String getModelo() {
+        return modelo;
     }
 
-    public void setModel(String model) {
-        this.model = model;
+    public void setModelo(String modelo) {
+        this.modelo = modelo;
     }
 
-    public String getSerialNumber() {
-        return serialNumber;
+    public String getNumeroSerie() {
+        return numeroSerie;
     }
 
-    public void setSerialNumber(String serialNumber) {
-        this.serialNumber = serialNumber;
+    public void setNumeroSerie(String numeroSerie) {
+        this.numeroSerie = numeroSerie;
     }
 
-    public String getProcessor() {
-        return processor;
+    public String getProcessador() {
+        return processador;
     }
 
-    public void setProcessor(String processor) {
-        this.processor = processor;
+    public void setProcessador(String processador) {
+        this.processador = processador;
     }
 
-    public String getRamMemory() {
-        return ramMemory;
+    public String getMemoriaRam() {
+        return memoriaRam;
     }
 
-    public void setRamMemory(String ramMemory) {
-        this.ramMemory = ramMemory;
+    public void setMemoriaRam(String memoriaRam) {
+        this.memoriaRam = memoriaRam;
     }
 
-    public String getHostname() {
-        return hostname;
+    public String getNomeHost() {
+        return nomeHost;
     }
 
-    public void setHostname(String hostname) {
-        this.hostname = hostname;
+    public void setNomeHost(String nomeHost) {
+        this.nomeHost = nomeHost;
     }
 
-    public String getDomain() {
-        return domain;
+    public String getDominio() {
+        return dominio;
     }
 
-    public void setDomain(String domain) {
-        this.domain = domain;
+    public void setDominio(String dominio) {
+        this.dominio = dominio;
     }
 
     public String getGateway() {
@@ -114,12 +112,12 @@ public class WindowsObject {
         this.gateway = gateway;
     }
 
-    public String getLastUserloggedIn() {
-        return lastUserloggedIn;
+    public String getUltimoUsuarioLogado() {
+        return ultimoUsuarioLogado;
     }
 
-    public void setLastUserloggedIn(String lastUserloggedIn) {
-        this.lastUserloggedIn = lastUserloggedIn;
+    public void setUltimoUsuarioLogado(String ultimoUsuarioLogado) {
+        this.ultimoUsuarioLogado = ultimoUsuarioLogado;
     }
 
     public List<InterfaceRedeObject> getIntefaces() {
@@ -130,11 +128,11 @@ public class WindowsObject {
         this.intefaces = intefaces;
     }
 
-    public List<DiscoRigidoObject> getDisks() {
-        return disks;
+    public List<DiscoRigidoObject> getDiscos() {
+        return discos;
     }
 
-    public void setDisks(List<DiscoRigidoObject> disks) {
-        this.disks = disks;
+    public void setDiscos(List<DiscoRigidoObject> discos) {
+        this.discos = discos;
     }
 }

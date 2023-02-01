@@ -54,11 +54,10 @@ public class WindowsConverter {
 
         //lista de discos
         List<DiscoRigidoObject> listaDiscos = new ArrayList<>();
-        List<ParticaoObject> particoes = new ArrayList<>();
         for (HWDiskStore disc : hal.getDiskStores()) {
             DiscoRigidoObject obj2 = new DiscoRigidoObject(
                     disc.getName().substring(4),
-                    "disc.getModel()",
+                    disc.getModel().substring(0, disc.getModel().indexOf("(") - 1),
                     disc.getSerial(),
                     disc.getSize(),
                     disc.getReads(),
@@ -73,20 +72,20 @@ public class WindowsConverter {
             listaDiscos.add(obj2);
         }
 
-        windows.setOs(os.toString());
-        windows.setOsArchitecture(os.getBitness());
-        windows.setManufacturer(hal.getComputerSystem().getManufacturer());
-        windows.setModel(hal.getComputerSystem().getModel());
-        windows.setSerialNumber(hal.getComputerSystem().getSerialNumber());
-        windows.setHostname(os.getNetworkParams().getHostName());
-        windows.setDomain(os.getNetworkParams().getDomainName());
+        windows.setSistemaOperacional(os.toString());
+        windows.setArquiteturaSo(os.getBitness());
+        windows.setFabricante(hal.getComputerSystem().getManufacturer());
+        windows.setModelo(hal.getComputerSystem().getModel());
+        windows.setNumeroSerie(hal.getComputerSystem().getSerialNumber());
+        windows.setNomeHost(os.getNetworkParams().getHostName());
+        windows.setDominio(os.getNetworkParams().getDomainName());
         windows.setGateway(os.getNetworkParams().getIpv4DefaultGateway());
-        windows.setLastUserloggedIn(System.getProperty("user.name"));
-        windows.setProcessor(processsor);
-        windows.setRamMemory(ramMemory);
+        windows.setUltimoUsuarioLogado(System.getProperty("user.name"));
+        windows.setProcessador(processsor);
+        windows.setMemoriaRam(ramMemory);
         windows.setDnsList(dnsList);
         windows.setIntefaces(listInterface);
-        windows.setDisks(listaDiscos);
+        windows.setDiscos(listaDiscos);
 
         return windows;
     }

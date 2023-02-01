@@ -4,18 +4,18 @@ import java.io.Serializable;
 
 public class ParticaoObject implements Serializable {
     private String pontoMontagem;
-    private String tamanho;
+    private String capacidade;
 
     public ParticaoObject(String pontoMontagem, Long tamanho) {
         this.pontoMontagem = pontoMontagem;
-        this.tamanho = String.valueOf(tamanho);
+        this.capacidade = String.valueOf(tamanho);
     }
 
     @Override
     public String toString() {
         return "{" +
                 "'pontoMontagem':'" + pontoMontagem.substring(0, 2) + '\'' +
-                ", 'tamanho':'" + tamanho + '\'' +
+                ", 'capacidade':'" + capacidade + '\'' +
                 "}";
     }
 }
