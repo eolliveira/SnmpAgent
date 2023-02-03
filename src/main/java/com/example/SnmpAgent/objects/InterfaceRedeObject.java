@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class InterfaceRedeObject implements Serializable {
 
     private String nomeLocal;
-    private String nomeFabricante;
+    private String fabricante;
     private String enderecoMac;
     private String enderecoIp;
     private String mascaraSubRede;
@@ -14,7 +14,7 @@ public class InterfaceRedeObject implements Serializable {
 
     public InterfaceRedeObject(String name, String displayName, String macaddr, String[] iPv4addr, Short[] subnetMasks) {
         this.nomeLocal = name;
-        this.nomeFabricante = displayName;
+        this.fabricante = displayName;
         this.enderecoMac = macaddr;
 
         //converte ip
@@ -41,12 +41,12 @@ public class InterfaceRedeObject implements Serializable {
         this.nomeLocal = nomeLocal;
     }
 
-    public String getNomeFabricante() {
-        return nomeFabricante;
+    public String getFabricante() {
+        return fabricante;
     }
 
-    public void setNomeFabricante(String nomeFabricante) {
-        this.nomeFabricante = nomeFabricante;
+    public void setFabricante(String fabricante) {
+        this.fabricante = fabricante;
     }
 
     public String getEnderecoMac() {
@@ -77,7 +77,7 @@ public class InterfaceRedeObject implements Serializable {
     public String toString() {
         return "{" +
                 "'nomeLocal':'" + nomeLocal + '\'' +
-                ", 'nomeFabricante':'" + nomeFabricante + '\'' +
+                ", 'fabricante':'" + fabricante + '\'' +
                 ", 'enderecoMac':'" + enderecoMac + '\'' +
                 ", 'enderecoIp':'" + enderecoIp + '\'' +
                 ", 'mascaraSubRede':'" + mascaraSubRede + '\'' +
