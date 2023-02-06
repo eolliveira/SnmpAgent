@@ -128,8 +128,7 @@ public class SnmpAgentReceiver extends BaseAgent {
     protected void registerManagedObjects() {
     }
 
-    protected void initTransportMappings() throws IOException {
-
+    protected void initTransportMappings() {
         transportMappings = new TransportMapping[1];
         transportMappings[0] = TransportMappings.getInstance().createTransportMapping(GenericAddress.parse(address));
     }
@@ -189,10 +188,7 @@ public class SnmpAgentReceiver extends BaseAgent {
         HardwareAbstractionLayer hal = si.getHardware();
         OperatingSystem os = si.getOperatingSystem();
 
-
-        System.out.println(hal.getDiskStores());
-
-
+        //System.out.println(hal.getDiskStores().get(1));
     }
 
 }

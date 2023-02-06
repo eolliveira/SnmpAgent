@@ -30,7 +30,6 @@ public class SnmpTrapSender {
         pdUv1.setSpecificTrap(1);
         pdUv1.setAgentAddress(new IpAddress(ipaddress));
 
-
         Snmp snmp = new Snmp(transportMapping);
         System.out.println("Sending v1 trap ---> ");
         snmp.send(pdUv1, communityTarget);
