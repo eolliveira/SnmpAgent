@@ -14,7 +14,9 @@ import org.snmp4j.security.USM;
 import org.snmp4j.smi.*;
 import org.snmp4j.transport.TransportMappings;
 import oshi.SystemInfo;
+import oshi.hardware.Display;
 import oshi.hardware.HardwareAbstractionLayer;
+import oshi.hardware.VirtualMemory;
 import oshi.software.os.OperatingSystem;
 
 import java.io.File;
@@ -188,7 +190,9 @@ public class SnmpAgentReceiver extends BaseAgent {
         HardwareAbstractionLayer hal = si.getHardware();
         OperatingSystem os = si.getOperatingSystem();
 
-        //System.out.println(hal.getDiskStores().get(1));
+
+        System.out.println(hal.getDisplays().get(0));
+        System.out.println(hal.getDisplays().get(1));
     }
 
 }

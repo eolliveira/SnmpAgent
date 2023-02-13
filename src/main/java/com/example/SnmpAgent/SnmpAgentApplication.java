@@ -29,7 +29,6 @@ public class SnmpAgentApplication {
             System.out.println("AgentSNMP ouvindo na porta 161...");
 
             // apenas continue executando o processo
-            // em um cenário normal, o agente será instanciado em um processo vivo
             while(true) {
                 Thread.sleep(10000);
             }
