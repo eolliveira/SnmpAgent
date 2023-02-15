@@ -187,6 +187,7 @@ public class SnmpAgentReceiver extends BaseAgent {
         registerManagedObject(ManagedObjectFactory.createReadOnly(mib.USUARIO_LOGADO_OID, win.getUltimoUsuarioLogado()));
         registerManagedObject(ManagedObjectFactory.createReadOnly(mib.INTERFACES_OID, win.getIntefaces()));
         registerManagedObject(ManagedObjectFactory.createReadOnly(mib.DISCO_RIGIDO_OID, win.getDiscos()));
+        registerManagedObject(ManagedObjectFactory.createReadOnly(mib.IMPRESSORAS_OID, win.getImpressoras()));
 
         //teste
 
@@ -196,17 +197,13 @@ public class SnmpAgentReceiver extends BaseAgent {
         OperatingSystem os = si.getOperatingSystem();
 
 
-//        System.out.println(hal.getDisplays().get(0));
-//        System.out.println(hal.getDisplays().get(1));
-
-
 
         //obtem impressoras instaladas
         PrintService[] printServices = PrintServiceLookup.lookupPrintServices(null, null);
         System.out.println("NUmero de impressoras: " + printServices.length);
 
         for (PrintService printer : printServices)
-            System.out.println("Printer: " + printer.getName());
+            System.out.println("Printer: " + printer.getName().substring(0));
     }
 
 }

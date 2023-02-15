@@ -1,9 +1,6 @@
 package com.example.SnmpAgent.converters;
 
-import com.example.SnmpAgent.objects.DiscoRigidoObject;
-import com.example.SnmpAgent.objects.InterfaceRedeObject;
-import com.example.SnmpAgent.objects.ParticaoObject;
-import com.example.SnmpAgent.objects.WindowsObject;
+import com.example.SnmpAgent.objects.*;
 import oshi.SystemInfo;
 import oshi.hardware.HWDiskStore;
 import oshi.hardware.HWPartition;
@@ -11,6 +8,8 @@ import oshi.hardware.HardwareAbstractionLayer;
 import oshi.hardware.NetworkIF;
 import oshi.software.os.OperatingSystem;
 
+import javax.print.PrintService;
+import javax.print.PrintServiceLookup;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -72,6 +71,14 @@ public class WindowsConverter {
             listaDiscos.add(obj2);
         }
 
+
+        //lista impressoras instaladas
+        PrintService[] printServices = PrintServiceLookup.lookupPrintServices(null, null);
+        List<ImpressoraObject> printers = new ArrayList<>();
+        for (PrintService printer : printServices)
+            printers.add(new ImpressoraObject(printer.toString().substring(16)));
+
+
         windows.setSistemaOperacional(os.toString());
         windows.setArquiteturaSo(os.getBitness());
         windows.setFabricante(hal.getComputerSystem().getManufacturer());
@@ -86,6 +93,7 @@ public class WindowsConverter {
         windows.setDnsList(dnsList);
         windows.setIntefaces(listInterface);
         windows.setDiscos(listaDiscos);
+        windows.setImpressoras(printers);
 
         return windows;
     }

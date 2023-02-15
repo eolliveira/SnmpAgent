@@ -21,11 +21,21 @@ public class WindowsObject {
 
     private List<DiscoRigidoObject> discos = new ArrayList<>();
 
+    private List<ImpressoraObject> impressoras = new ArrayList<>();
+
     public WindowsObject() {
     }
 
     public List<String> getDnsList() {
         return dnsList;
+    }
+
+    public List<ImpressoraObject> getImpressoras() {
+        return impressoras;
+    }
+
+    public void setImpressoras(List<ImpressoraObject> impressoras) {
+        this.impressoras = impressoras;
     }
 
     public void setDnsList(List<String> dnsList) {
