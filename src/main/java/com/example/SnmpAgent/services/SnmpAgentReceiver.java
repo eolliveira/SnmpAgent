@@ -191,8 +191,15 @@ public class SnmpAgentReceiver extends BaseAgent {
         OperatingSystem os = si.getOperatingSystem();
 
 
-        System.out.println(hal.getDisplays().get(0));
-        System.out.println(hal.getDisplays().get(1));
+//        System.out.println(hal.getDisplays().get(0));
+//        System.out.println(hal.getDisplays().get(1));
+
+
+//        System.out.println(new File("c:/").getTotalSpace());
+//
+//        // Pegar o espaço que está sendo usado do HD
+//        System.out.println(new File("d:/").getTotalSpace() - new File("d:/").getFreeSpace());
+
     }
 
 }

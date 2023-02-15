@@ -9,20 +9,16 @@ public class DiscoRigidoObject implements Serializable {
     private String modelo;
     private String numeroSerie;
     private String capacidade;
-    private String usado;
-    private String disponivel;
 
     private List<ParticaoObject> particoes = new ArrayList<>();
 
     public DiscoRigidoObject(){}
 
-    public DiscoRigidoObject(String name, String model, String serial, long size, long reads, long writes) {
+    public DiscoRigidoObject(String name, String model, String serial, long size) {
         this.nome = name;
         this.modelo = model;
         this.numeroSerie = serial;
         this.capacidade = String.valueOf(size);
-        this.usado = String.valueOf(reads);
-        this.disponivel = String.valueOf(writes);
     }
 
     public String getNome() {
@@ -57,23 +53,6 @@ public class DiscoRigidoObject implements Serializable {
         this.capacidade = capacidade;
     }
 
-    public String getUsado() {
-        return usado;
-    }
-
-    public void setUsado(String usado) {
-        this.usado = usado;
-    }
-
-    public String getDisponivel() {
-        return disponivel;
-    }
-
-    public void setDisponivel(String disponivel) {
-        this.disponivel = disponivel;
-    }
-
-
     public List<ParticaoObject> getParticoes() {
         return particoes;
     }
@@ -89,8 +68,6 @@ public class DiscoRigidoObject implements Serializable {
                 ", 'modelo':'" + modelo + '\'' +
                 ", 'numeroSerie':'" + numeroSerie + '\'' +
                 ", 'capacidade':'" + capacidade + '\'' +
-                ", 'usado':'" + usado + '\'' +
-                ", 'disponivel':'" + disponivel + '\'' +
                 ", 'particoes':" + particoes +
                 "}";
     }

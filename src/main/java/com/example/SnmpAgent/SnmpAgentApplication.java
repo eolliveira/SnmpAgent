@@ -1,6 +1,7 @@
 package com.example.SnmpAgent;
 
 import com.example.SnmpAgent.services.SnmpAgentReceiver;
+import com.example.SnmpAgent.services.SnmpTrapSender;
 
 import java.io.IOException;
 
@@ -11,10 +12,9 @@ public class SnmpAgentApplication {
     private static String portTrap = "162";
 
     public static void main(String[] args) throws IOException {
-//        //lança trap para o manager
-//        SnmpTrapSender trapSender = new SnmpTrapSender();
-//        trapSender.sendTrapV1(COMMUNITY, IPADDRESS, portTrap, OID);
-
+        //lança trap para o manager
+        SnmpTrapSender trapSender = new SnmpTrapSender();
+        trapSender.sendTrapV1(COMMUNITY, IPADDRESS, portTrap, OID);
 
         try {
             // crie um agente receptor em localhost:161

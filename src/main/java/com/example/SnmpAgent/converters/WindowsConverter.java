@@ -11,6 +11,7 @@ import oshi.hardware.HardwareAbstractionLayer;
 import oshi.hardware.NetworkIF;
 import oshi.software.os.OperatingSystem;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,13 +60,12 @@ public class WindowsConverter {
                     disc.getName().substring(4),
                     disc.getModel().substring(0, disc.getModel().indexOf("(") - 1),
                     disc.getSerial(),
-                    disc.getSize(),
-                    disc.getReads(),
-                    disc.getWrites());
+                    disc.getSize());
             for(HWPartition partition : disc.getPartitions()) {
                 ParticaoObject part = new ParticaoObject(
                         partition.getMountPoint(),
-                        partition.getSize());
+                        partition.getSize(),
+                        new File(partition.getMountPoint() + "/").getTotalSpace() - new File(partition.getMountPoint() + "/").getFreeSpace());
                 obj2.getParticoes().add(part);
             }
 
