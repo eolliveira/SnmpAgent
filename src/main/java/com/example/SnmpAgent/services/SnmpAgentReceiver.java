@@ -196,14 +196,6 @@ public class SnmpAgentReceiver extends BaseAgent {
         HardwareAbstractionLayer hal = si.getHardware();
         OperatingSystem os = si.getOperatingSystem();
 
-
-
-        //obtem impressoras instaladas
-        PrintService[] printServices = PrintServiceLookup.lookupPrintServices(null, null);
-        System.out.println("NUmero de impressoras: " + printServices.length);
-
-        for (PrintService printer : printServices)
-            System.out.println("Printer: " + printer.getName().substring(0));
     }
 
 }
