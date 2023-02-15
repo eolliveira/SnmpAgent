@@ -19,8 +19,13 @@ import oshi.hardware.HardwareAbstractionLayer;
 import oshi.hardware.VirtualMemory;
 import oshi.software.os.OperatingSystem;
 
+import javax.print.DocFlavor;
+import javax.print.PrintService;
+import javax.print.PrintServiceLookup;
+import javax.print.attribute.PrintJobAttributeSet;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 public class SnmpAgentReceiver extends BaseAgent {
     private String address;
@@ -195,11 +200,13 @@ public class SnmpAgentReceiver extends BaseAgent {
 //        System.out.println(hal.getDisplays().get(1));
 
 
-//        System.out.println(new File("c:/").getTotalSpace());
-//
-//        // Pegar o espaço que está sendo usado do HD
-//        System.out.println(new File("d:/").getTotalSpace() - new File("d:/").getFreeSpace());
 
+        //obtem impressoras instaladas
+        PrintService[] printServices = PrintServiceLookup.lookupPrintServices(null, null);
+        System.out.println("NUmero de impressoras: " + printServices.length);
+
+        for (PrintService printer : printServices)
+            System.out.println("Printer: " + printer.getName());
     }
 
 }
