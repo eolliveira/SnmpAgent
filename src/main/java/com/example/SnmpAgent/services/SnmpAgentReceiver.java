@@ -14,22 +14,11 @@ import org.snmp4j.security.USM;
 import org.snmp4j.smi.*;
 import org.snmp4j.transport.TransportMappings;
 import oshi.SystemInfo;
-import oshi.hardware.Display;
 import oshi.hardware.HardwareAbstractionLayer;
-import oshi.hardware.VirtualMemory;
 import oshi.software.os.OperatingSystem;
-import oshi.util.FormatUtil;
 
-import javax.print.DocFlavor;
-import javax.print.PrintService;
-import javax.print.PrintServiceLookup;
-import javax.print.attribute.PrintJobAttributeSet;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
 
 public class SnmpAgentReceiver extends BaseAgent {
     private String address;
