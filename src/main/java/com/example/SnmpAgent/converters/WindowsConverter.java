@@ -7,6 +7,7 @@ import oshi.hardware.HWPartition;
 import oshi.hardware.HardwareAbstractionLayer;
 import oshi.hardware.NetworkIF;
 import oshi.software.os.OperatingSystem;
+import oshi.util.FormatUtil;
 
 import javax.print.PrintService;
 import javax.print.PrintServiceLookup;
@@ -89,6 +90,7 @@ public class WindowsConverter {
         windows.setDominio(os.getNetworkParams().getDomainName());
         windows.setGateway(os.getNetworkParams().getIpv4DefaultGateway());
         windows.setUltimoUsuarioLogado(System.getProperty("user.name"));
+        windows.setTempoLigado(FormatUtil.formatElapsedSecs(os.getSystemUptime()));
         windows.setProcessador(processsor);
         windows.setMemoriaRam(ramMemory);
         windows.setDnsList(dnsList);

@@ -16,6 +16,8 @@ public class WindowsObject {
     private String dominio;
     private String gateway;
     private String ultimoUsuarioLogado;
+
+    private String tempoLigado;
     private List<String> dnsList;
     private List<InterfaceRedeObject> intefaces = new ArrayList<>();
 
@@ -36,6 +38,14 @@ public class WindowsObject {
 
     public void setImpressoras(List<ImpressoraObject> impressoras) {
         this.impressoras = impressoras;
+    }
+
+    public String getTempoLigado() {
+        return tempoLigado;
+    }
+
+    public void setTempoLigado(String tempoLigado) {
+        this.tempoLigado = tempoLigado;
     }
 
     public void setDnsList(List<String> dnsList) {

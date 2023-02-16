@@ -18,6 +18,7 @@ import oshi.hardware.Display;
 import oshi.hardware.HardwareAbstractionLayer;
 import oshi.hardware.VirtualMemory;
 import oshi.software.os.OperatingSystem;
+import oshi.util.FormatUtil;
 
 import javax.print.DocFlavor;
 import javax.print.PrintService;
@@ -185,6 +186,7 @@ public class SnmpAgentReceiver extends BaseAgent {
         registerManagedObject(ManagedObjectFactory.createReadOnly(mib.GATEWAY_OID, win.getGateway()));
         registerManagedObject(ManagedObjectFactory.createReadOnly(mib.DNS_OID, win.getDnsList()));
         registerManagedObject(ManagedObjectFactory.createReadOnly(mib.USUARIO_LOGADO_OID, win.getUltimoUsuarioLogado()));
+        registerManagedObject(ManagedObjectFactory.createReadOnly(mib.TEMPO_LIGADO_OID, win.getTempoLigado()));
         registerManagedObject(ManagedObjectFactory.createReadOnly(mib.INTERFACES_OID, win.getIntefaces()));
         registerManagedObject(ManagedObjectFactory.createReadOnly(mib.DISCO_RIGIDO_OID, win.getDiscos()));
         registerManagedObject(ManagedObjectFactory.createReadOnly(mib.IMPRESSORAS_OID, win.getImpressoras()));
@@ -195,6 +197,11 @@ public class SnmpAgentReceiver extends BaseAgent {
         SystemInfo si = new SystemInfo();
         HardwareAbstractionLayer hal = si.getHardware();
         OperatingSystem os = si.getOperatingSystem();
+
+
+        System.out.println(String.valueOf(os.getSystemUptime()));
+
+        System.out.println(FormatUtil.formatElapsedSecs(os.getSystemUptime()));
 
     }
 

@@ -13,6 +13,7 @@ public class WindowsMIB {
     public final String NOME_OID = BASE_OID + ".2.2.1.0";
     public final String DOMINIO_OID = BASE_OID + ".2.2.2.0";
     public final String USUARIO_LOGADO_OID = BASE_OID + ".2.2.5.0";
+    public final String TEMPO_LIGADO_OID = BASE_OID + ".2.2.9.0";
     public final String GATEWAY_OID = BASE_OID + ".2.2.3.0";
     public final String DNS_OID = BASE_OID + ".2.2.4.0";
     public final String INTERFACES_OID = BASE_OID + ".2.2.6.0";
