@@ -8,7 +8,12 @@ import oshi.util.FormatUtil;
 
 import javax.print.PrintService;
 import javax.print.PrintServiceLookup;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +24,7 @@ public class WindowsConverter {
     HardwareAbstractionLayer hal = si.getHardware();
     OperatingSystem os = si.getOperatingSystem();
 
-    public WindowsObject getConvertedData() {
+    public WindowsObject getConvertedData() throws IOException {
 
         //recorte processador
         String x = hal.getProcessor().toString();
@@ -86,6 +91,28 @@ public class WindowsConverter {
         }
 
 
+        //Programas instalados
+
+        Process p = Runtime.getRuntime().exec("cmd /c wmic product get name,installDate");
+        BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
+        List<ProgramaObject> programas  = new ArrayList<>();
+
+        String line;
+        //printa o retorno
+        while ((line = stdInput.readLine()) != null) {
+            if(!line.isEmpty()) {
+                String dtIntalacao = line.substring(0, line.indexOf("   "));
+                String software = line.substring(line.indexOf("   "));
+                ProgramaObject programa = new ProgramaObject(software.trim(), dtIntalacao.trim());
+                programas.add(programa);
+            }
+        }
+
+        p.destroy();
+        programas.remove(0);
+
+
+
         windows.setSistemaOperacional(os.toString());
         windows.setArquiteturaSo(os.getBitness());
         windows.setFabricante(hal.getComputerSystem().getManufacturer());
@@ -103,6 +130,7 @@ public class WindowsConverter {
         windows.setDiscos(listaDiscos);
         windows.setImpressoras(printers);
         windows.setPlascasVideo(placas);
+        windows.setProgramasIntalados(programas);
 
         return windows;
     }

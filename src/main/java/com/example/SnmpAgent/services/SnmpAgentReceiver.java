@@ -24,8 +24,11 @@ import javax.print.DocFlavor;
 import javax.print.PrintService;
 import javax.print.PrintServiceLookup;
 import javax.print.attribute.PrintJobAttributeSet;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SnmpAgentReceiver extends BaseAgent {
@@ -163,7 +166,7 @@ public class SnmpAgentReceiver extends BaseAgent {
         moGroup.unregisterMOs(server, getContext(moGroup));
     }
 
-    public void registerCustomMIB() {
+    public void registerCustomMIB() throws IOException {
 
         unregisterManagedObject(getSnmpv2MIB());
 
@@ -191,26 +194,14 @@ public class SnmpAgentReceiver extends BaseAgent {
         registerManagedObject(ManagedObjectFactory.createReadOnly(mib.DISCO_RIGIDO_OID, win.getDiscos()));
         registerManagedObject(ManagedObjectFactory.createReadOnly(mib.IMPRESSORAS_OID, win.getImpressoras()));
         registerManagedObject(ManagedObjectFactory.createReadOnly(mib.PLACAS_VIDEO_OID, win.getPlascasVideo()));
+        registerManagedObject(ManagedObjectFactory.createReadOnly(mib.PROGRAMAS_OID, win.getProgramasIntalados()));
+
 
         //teste
-
         WindowsObject windows = new WindowsObject();
         SystemInfo si = new SystemInfo();
         HardwareAbstractionLayer hal = si.getHardware();
         OperatingSystem os = si.getOperatingSystem();
-
-
-//        //monitores
-//        System.out.println(hal.getDisplays().get(0));
-//        System.out.println("--------------");
-//        System.out.println(hal.getDisplays().get(1));
-
-
-//        //bateria
-//        System.out.println("--------------");
-//        System.out.println(hal.getPowerSources().get(0));
-//        System.out.println(hal.getPowerSources().get(0).getRemainingCapacityPercent());
-
 
 
     }

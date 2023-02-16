@@ -23,6 +23,8 @@ public class WindowsObject {
     private List<ImpressoraObject> impressoras = new ArrayList<>();
     private List<PlacaVideoObject> plascasVideo = new ArrayList<>();
 
+    private List<ProgramaObject> programasIntalados = new ArrayList<>();
+
 
     public WindowsObject() {
     }
@@ -160,5 +162,13 @@ public class WindowsObject {
 
     public void setPlascasVideo(List<PlacaVideoObject> plascasVideo) {
         this.plascasVideo = plascasVideo;
+    }
+
+    public List<ProgramaObject> getProgramasIntalados() {
+        return programasIntalados;
+    }
+
+    public void setProgramasIntalados(List<ProgramaObject> programasIntalados) {
+        this.programasIntalados = programasIntalados;
     }
 }
