@@ -199,9 +199,25 @@ public class SnmpAgentReceiver extends BaseAgent {
         OperatingSystem os = si.getOperatingSystem();
 
 
-        System.out.println(String.valueOf(os.getSystemUptime()));
+//        //placas de video
+//        System.out.println(hal.getGraphicsCards().get(0).getName());
+//        System.out.println(hal.getGraphicsCards().get(0).getVendor());
+//        System.out.println(hal.getGraphicsCards().get(0).getVersionInfo());
+//        System.out.println("--------------");
 
-        System.out.println(FormatUtil.formatElapsedSecs(os.getSystemUptime()));
+
+//        //monitores
+//        System.out.println(hal.getDisplays().get(0));
+//        System.out.println("--------------");
+//        System.out.println(hal.getDisplays().get(1));
+
+
+        //bateria
+        System.out.println("--------------");
+        System.out.println(hal.getPowerSources().get(0));
+        System.out.println(hal.getPowerSources().get(0).getRemainingCapacityPercent());
+
+
 
     }
 
