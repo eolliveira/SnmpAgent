@@ -190,6 +190,7 @@ public class SnmpAgentReceiver extends BaseAgent {
         registerManagedObject(ManagedObjectFactory.createReadOnly(mib.INTERFACES_OID, win.getIntefaces()));
         registerManagedObject(ManagedObjectFactory.createReadOnly(mib.DISCO_RIGIDO_OID, win.getDiscos()));
         registerManagedObject(ManagedObjectFactory.createReadOnly(mib.IMPRESSORAS_OID, win.getImpressoras()));
+        registerManagedObject(ManagedObjectFactory.createReadOnly(mib.PLACAS_VIDEO_OID, win.getPlascasVideo()));
 
         //teste
 
@@ -199,23 +200,16 @@ public class SnmpAgentReceiver extends BaseAgent {
         OperatingSystem os = si.getOperatingSystem();
 
 
-//        //placas de video
-//        System.out.println(hal.getGraphicsCards().get(0).getName());
-//        System.out.println(hal.getGraphicsCards().get(0).getVendor());
-//        System.out.println(hal.getGraphicsCards().get(0).getVersionInfo());
-//        System.out.println("--------------");
-
-
 //        //monitores
 //        System.out.println(hal.getDisplays().get(0));
 //        System.out.println("--------------");
 //        System.out.println(hal.getDisplays().get(1));
 
 
-        //bateria
-        System.out.println("--------------");
-        System.out.println(hal.getPowerSources().get(0));
-        System.out.println(hal.getPowerSources().get(0).getRemainingCapacityPercent());
+//        //bateria
+//        System.out.println("--------------");
+//        System.out.println(hal.getPowerSources().get(0));
+//        System.out.println(hal.getPowerSources().get(0).getRemainingCapacityPercent());
 
 
 

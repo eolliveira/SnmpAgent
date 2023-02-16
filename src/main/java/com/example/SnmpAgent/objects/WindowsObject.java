@@ -16,26 +16,16 @@ public class WindowsObject {
     private String dominio;
     private String gateway;
     private String ultimoUsuarioLogado;
-
     private String tempoLigado;
     private List<String> dnsList;
     private List<InterfaceRedeObject> intefaces = new ArrayList<>();
-
     private List<DiscoRigidoObject> discos = new ArrayList<>();
-
     private List<ImpressoraObject> impressoras = new ArrayList<>();
+    private List<PlacaVideoObject> plascasVideo = new ArrayList<>();
+
 
     public WindowsObject() {
     }
-
-    public List<String> getDnsList() {
-        return dnsList;
-    }
-
-    public List<ImpressoraObject> getImpressoras() {
-        return impressoras;
-    }
-
     public void setImpressoras(List<ImpressoraObject> impressoras) {
         this.impressoras = impressoras;
     }
@@ -154,5 +144,21 @@ public class WindowsObject {
 
     public void setDiscos(List<DiscoRigidoObject> discos) {
         this.discos = discos;
+    }
+
+    public List<String> getDnsList() {
+        return dnsList;
+    }
+
+    public List<ImpressoraObject> getImpressoras() {
+        return impressoras;
+    }
+
+    public List<PlacaVideoObject> getPlascasVideo() {
+        return plascasVideo;
+    }
+
+    public void setPlascasVideo(List<PlacaVideoObject> plascasVideo) {
+        this.plascasVideo = plascasVideo;
     }
 }

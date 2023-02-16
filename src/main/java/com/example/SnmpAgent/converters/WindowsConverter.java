@@ -2,10 +2,7 @@ package com.example.SnmpAgent.converters;
 
 import com.example.SnmpAgent.objects.*;
 import oshi.SystemInfo;
-import oshi.hardware.HWDiskStore;
-import oshi.hardware.HWPartition;
-import oshi.hardware.HardwareAbstractionLayer;
-import oshi.hardware.NetworkIF;
+import oshi.hardware.*;
 import oshi.software.os.OperatingSystem;
 import oshi.util.FormatUtil;
 
@@ -81,6 +78,14 @@ public class WindowsConverter {
             printers.add(new ImpressoraObject(printer.toString().substring(16)));
 
 
+        //plascas de video
+        List<PlacaVideoObject> placas = new ArrayList<>();
+        for(GraphicsCard placa: hal.getGraphicsCards()){
+            PlacaVideoObject obj =  new PlacaVideoObject(placa.getName(), placa.getVendor(), placa.getVersionInfo());
+            placas.add(obj);
+        }
+
+
         windows.setSistemaOperacional(os.toString());
         windows.setArquiteturaSo(os.getBitness());
         windows.setFabricante(hal.getComputerSystem().getManufacturer());
@@ -97,6 +102,7 @@ public class WindowsConverter {
         windows.setIntefaces(listInterface);
         windows.setDiscos(listaDiscos);
         windows.setImpressoras(printers);
+        windows.setPlascasVideo(placas);
 
         return windows;
     }
