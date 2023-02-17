@@ -165,6 +165,7 @@ public class WindowsObject {
     }
 
     public List<ProgramaObject> getProgramasIntalados() {
+
         return programasIntalados;
     }
 

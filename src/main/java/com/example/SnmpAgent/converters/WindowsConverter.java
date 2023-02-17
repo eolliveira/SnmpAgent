@@ -86,7 +86,8 @@ public class WindowsConverter {
         //plascas de video
         List<PlacaVideoObject> placas = new ArrayList<>();
         for(GraphicsCard placa: hal.getGraphicsCards()){
-            PlacaVideoObject obj =  new PlacaVideoObject(placa.getName(), placa.getVendor(), placa.getVersionInfo());
+            String versao = placa.getVersionInfo().substring(placa.getVersionInfo().indexOf("=") + 1);
+            PlacaVideoObject obj =  new PlacaVideoObject(placa.getName(), placa.getVendor(), versao);
             placas.add(obj);
         }
 
