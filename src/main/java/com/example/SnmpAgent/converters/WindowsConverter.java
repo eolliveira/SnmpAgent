@@ -17,6 +17,8 @@ import java.util.List;
 
 
 public class WindowsConverter {
+
+    private final static String SCRIPT_INSTALLED_PROGRAMS = "cmd /c cd C:\\Windows\\System32\\wbem && wmic product get name,installDate";
     WindowsObject windows = new WindowsObject();
     SystemInfo si = new SystemInfo();
     HardwareAbstractionLayer hal = si.getHardware();
@@ -90,7 +92,7 @@ public class WindowsConverter {
 
 
         //Programas instalados
-        Process p = Runtime.getRuntime().exec("cmd /c cd C:\\Windows\\System32\\wbem && wmic product get name,installDate");
+        Process p = Runtime.getRuntime().exec(SCRIPT_INSTALLED_PROGRAMS);
         BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
         List<ProgramaObject> programas  = new ArrayList<>();
 
