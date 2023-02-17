@@ -7,14 +7,14 @@ import java.io.IOException;
 
 public class SnmpAgentApplication {
     private static String COMMUNITY = "public";
-    private static final String IPADDRESS = "127.0.0.1";
+    private static String IPADDRESS = "127.0.0.1";
     private static String OID = ".1.3.6.1.2.1.1.8";
     private static String portTrap = "162";
 
     public static void main(String[] args) throws IOException {
-//        //lança trap para o manager
-//        SnmpTrapSender trapSender = new SnmpTrapSender();
-//        trapSender.sendTrapV1(COMMUNITY, IPADDRESS, portTrap, OID);
+        //lança trap para o manager
+        SnmpTrapSender trapSender = new SnmpTrapSender();
+        trapSender.sendTrapV1(COMMUNITY, IPADDRESS, portTrap, OID);
 
         try {
             // crie um agente receptor em localhost:161

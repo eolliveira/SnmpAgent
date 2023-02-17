@@ -19,6 +19,7 @@ import oshi.software.os.OperatingSystem;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.InetAddress;
 
 public class SnmpAgentReceiver extends BaseAgent {
     private String address;
