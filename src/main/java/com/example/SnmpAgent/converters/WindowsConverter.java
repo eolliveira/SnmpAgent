@@ -90,8 +90,7 @@ public class WindowsConverter {
 
 
         //Programas instalados
-
-        Process p = Runtime.getRuntime().exec("cmd /c wmic product get name,installDate");
+        Process p = Runtime.getRuntime().exec("cmd /c cd C:\\Windows\\System32\\wbem && wmic product get name,installDate");
         BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
         List<ProgramaObject> programas  = new ArrayList<>();
 
@@ -107,7 +106,10 @@ public class WindowsConverter {
         }
 
         p.destroy();
-        programas.remove(0);
+
+        if(!programas.isEmpty())
+            programas.remove(0);
+
 
 
 

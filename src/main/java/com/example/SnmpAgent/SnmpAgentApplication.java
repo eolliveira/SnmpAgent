@@ -12,9 +12,9 @@ public class SnmpAgentApplication {
     private static String portTrap = "162";
 
     public static void main(String[] args) throws IOException {
-        //lança trap para o manager
-        SnmpTrapSender trapSender = new SnmpTrapSender();
-        trapSender.sendTrapV1(COMMUNITY, IPADDRESS, portTrap, OID);
+//        //lança trap para o manager
+//        SnmpTrapSender trapSender = new SnmpTrapSender();
+//        trapSender.sendTrapV1(COMMUNITY, IPADDRESS, portTrap, OID);
 
         try {
             // crie um agente receptor em localhost:161
@@ -34,6 +34,7 @@ public class SnmpAgentApplication {
             }
 
         } catch (Exception e) {
+            e.printStackTrace();
             System.out.println("Falha ao iniciar o agente SNMP na porta 161 : " + e.getMessage());
         }
 
