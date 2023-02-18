@@ -34,11 +34,12 @@ public class SnmpTrapSender {
 
         // Create PDU for V2
         PDU pdu = new PDU();
-        // need to specify the system up time
-        pdu.add(new VariableBinding(SnmpConstants.sysUpTime, new OctetString(new Date().toString())));
-        pdu.add(new VariableBinding(SnmpConstants.snmpTrapOID, new OID(oid)));
+
+        pdu.add(new VariableBinding(SnmpConstants.sysDescr, new OctetString( "SYNC_REQUEST")));
+        pdu.add(new VariableBinding(SnmpConstants.sysName, new OctetString( "WORKSPACE")));
         pdu.add(new VariableBinding(SnmpConstants.snmpTrapAddress, new IpAddress(InetAddress.getLocalHost().getHostAddress())));
-        pdu.add(new VariableBinding(new OID(oid), new OctetString("Major")));
+        pdu.add(new VariableBinding(SnmpConstants.sysUpTime, new OctetString(new Date().toString())));
+
         pdu.setType(PDU.NOTIFICATION);
 
         Snmp snmp = new Snmp(transportMapping);
