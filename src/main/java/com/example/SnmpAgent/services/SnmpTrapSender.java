@@ -22,21 +22,11 @@ public class SnmpTrapSender {
         communityTarget.setTimeout(5000);
         communityTarget.setRetries(2);
 
-//        PDUv1 pdUv1 = new PDUv1();
-//        pdUv1.add(new VariableBinding(SnmpConstants.sysLocation, new OctetString(new Date().toString())));
-//        pdUv1.setType(PDU.V1TRAP);
-//        pdUv1.setEnterprise(new OID(oid));
-//        pdUv1.setGenericTrap(PDUv1.ENTERPRISE_SPECIFIC);
-//        pdUv1.setSpecificTrap(1);
-//        //pdUv1.setAgentAddress(new IpAddress(ipaddress));
-//        pdUv1.setAgentAddress(new IpAddress(InetAddress.getLocalHost().getHostAddress()));
-
-
         // Create PDU for V2
         PDU pdu = new PDU();
 
         pdu.add(new VariableBinding(SnmpConstants.sysDescr, new OctetString( "SYNC_REQUEST")));
-        pdu.add(new VariableBinding(SnmpConstants.sysName, new OctetString( "WORKSPACE")));
+        pdu.add(new VariableBinding(SnmpConstants.sysName, new OctetString( "WORKSTATION")));
         pdu.add(new VariableBinding(SnmpConstants.snmpTrapAddress, new IpAddress(InetAddress.getLocalHost().getHostAddress())));
         pdu.add(new VariableBinding(SnmpConstants.sysUpTime, new OctetString(new Date().toString())));
 
