@@ -48,9 +48,9 @@ public class WindowsConverter {
         List<InterfaceRedeObject> listInterface = new ArrayList<>();
         for (NetworkIF dns : hal.getNetworkIFs()) {
             InterfaceRedeObject obj = new InterfaceRedeObject(
-                    dns.getName(),
-                    dns.getDisplayName(),
-                    dns.getMacaddr(),
+                    dns.getName().trim(),
+                    dns.getDisplayName().trim(),
+                    dns.getMacaddr().toUpperCase().trim(),
                     dns.getIPv4addr(),
                     dns.getSubnetMasks());
             listInterface.add(obj);
