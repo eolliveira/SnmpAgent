@@ -125,7 +125,7 @@ public class WindowsConverter {
         windows.setDominio(os.getNetworkParams().getDomainName());
         windows.setGateway(os.getNetworkParams().getIpv4DefaultGateway());
         windows.setUltimoUsuarioLogado(System.getProperty("user.name"));
-        windows.setTempoLigado(FormatUtil.formatElapsedSecs(os.getSystemUptime()));
+        windows.setTempoLigado(FormatUtil.formatElapsedSecs(os.getSystemUptime()).replace("days", "dias"));
         windows.setProcessador(processsor);
         windows.setMemoriaRam(ramMemory);
         windows.setDnsList(dnsList);
