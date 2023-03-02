@@ -64,7 +64,7 @@ public class WindowsConverter {
                     disc.getModel().substring(0, disc.getModel().indexOf("(") - 1),
                     disc.getSerial(),
                     disc.getSize());
-            for(HWPartition partition : disc.getPartitions()) {
+            for (HWPartition partition : disc.getPartitions()) {
                 ParticaoObject part = new ParticaoObject(
                         partition.getMountPoint(),
                         partition.getSize(),
@@ -85,9 +85,11 @@ public class WindowsConverter {
 
         //plascas de video
         List<PlacaVideoObject> placas = new ArrayList<>();
-        for(GraphicsCard placa: hal.getGraphicsCards()){
+        for (GraphicsCard placa : hal.getGraphicsCards()) {
             String versao = placa.getVersionInfo().substring(placa.getVersionInfo().indexOf("=") + 1);
-            PlacaVideoObject obj =  new PlacaVideoObject(placa.getName(), placa.getVendor(), versao);
+            PlacaVideoObject obj = new PlacaVideoObject(
+                    placa.getName().replaceAll("[^\\x00-\\x7F]+", "@"),
+                    placa.getVendor().replaceAll("[^\\x00-\\x7F]+", "@"), versao);
             placas.add(obj);
         }
 
@@ -95,25 +97,24 @@ public class WindowsConverter {
         //Programas instalados
         Process p = Runtime.getRuntime().exec(SCRIPT_INSTALLED_PROGRAMS);
         BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
-        List<ProgramaObject> programas  = new ArrayList<>();
+        List<ProgramaObject> programas = new ArrayList<>();
 
         String line;
         //printa o retorno
         while ((line = stdInput.readLine()) != null) {
-            if(!line.isEmpty()) {
+            if (!line.isEmpty()) {
                 String dtIntalacao = line.substring(0, line.indexOf("   "));
                 String software = line.substring(line.indexOf("   "));
-                ProgramaObject programa = new ProgramaObject(software.trim(), dtIntalacao.trim());
+                ProgramaObject programa = new ProgramaObject(software.trim().replaceAll("[^\\x00-\\x7F]+", "@"), dtIntalacao.trim());
                 programas.add(programa);
             }
         }
 
         p.destroy();
 
-        if(!programas.isEmpty())
+        if (!programas.isEmpty()) {
             programas.remove(0);
-
-
+        }
 
 
         windows.setSistemaOperacional(os.toString());
