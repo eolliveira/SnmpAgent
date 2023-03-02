@@ -14,12 +14,16 @@ import org.snmp4j.security.USM;
 import org.snmp4j.smi.*;
 import org.snmp4j.transport.TransportMappings;
 import oshi.SystemInfo;
+import oshi.hardware.CentralProcessor;
 import oshi.hardware.HardwareAbstractionLayer;
 import oshi.software.os.OperatingSystem;
 
+import javax.print.PrintService;
+import javax.print.PrintServiceLookup;
 import java.io.File;
 import java.io.IOException;
 import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 public class SnmpAgentReceiver extends BaseAgent {
     private String address;
@@ -119,11 +123,9 @@ public class SnmpAgentReceiver extends BaseAgent {
         );
     }
 
-
     @Override
     protected void unregisterManagedObjects() {
     }
-
 
     @Override
     protected void registerManagedObjects() {
