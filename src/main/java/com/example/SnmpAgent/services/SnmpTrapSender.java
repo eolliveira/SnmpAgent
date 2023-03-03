@@ -60,7 +60,7 @@ public class SnmpTrapSender {
         pdu.setType(PDU.NOTIFICATION);
 
         Snmp snmp = new Snmp(transportMapping);
-        System.out.println("Sending v1 trap ---> ");
+        System.out.println("Enviando armadilha pdu v1 ---> ");
         //System.out.println(InetAddress.getLocalHost().getHostAddress());
         snmp.send(pdu, communityTarget);
         snmp.close();
