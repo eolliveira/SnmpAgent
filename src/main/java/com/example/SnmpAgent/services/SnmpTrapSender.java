@@ -28,21 +28,33 @@ public class SnmpTrapSender {
         // Create PDU for V2
         PDU pdu = new PDU();
 
-        pdu.add(new VariableBinding(SnmpConstants.sysDescr, new OctetString( "SYNC_REQUEST")));
-        pdu.add(new VariableBinding(SnmpConstants.sysName, new OctetString( "WORKSTATION")));
+        pdu.add(new VariableBinding(SnmpConstants.sysDescr, new OctetString("SYNC_REQUEST")));
+        pdu.add(new VariableBinding(SnmpConstants.sysName, new OctetString("WORKSTATION")));
         pdu.add(new VariableBinding(SnmpConstants.snmpTrapAddress, new IpAddress(InetAddress.getLocalHost().getHostAddress())));
         pdu.add(new VariableBinding(SnmpConstants.sysUpTime, new OctetString(new Date().toString())));
 
-
-        ///////////////////teste para enviar informações do ativo ja no trap
         WindowsMIB mib = new WindowsMIB();
         WindowsConverter converter = new WindowsConverter();
         WindowsObject win = converter.getConvertedData();
 
-        pdu.add(new VariableBinding(new OID(mib.PROCESSADOR_OID), new OctetString( win.getProcessador())));
-
-        ////////////////////////////////////////
-
+        pdu.add(new VariableBinding(new OID(mib.SO_OID), new OctetString(win.getSistemaOperacional())));
+        pdu.add(new VariableBinding(new OID(mib.ARQUITETURA_SO_OID), new OctetString(String.valueOf(win.getArquiteturaSo()))));
+        pdu.add(new VariableBinding(new OID(mib.FABRICANTE_OID), new OctetString(win.getFabricante())));
+        pdu.add(new VariableBinding(new OID(mib.MODELO_OID), new OctetString(win.getModelo())));
+        pdu.add(new VariableBinding(new OID(mib.NUMERO_SERIE_OID), new OctetString(win.getNumeroSerie())));
+        pdu.add(new VariableBinding(new OID(mib.PROCESSADOR_OID), new OctetString(win.getProcessador())));
+        pdu.add(new VariableBinding(new OID(mib.MEMORIA_RAM_OID), new OctetString(win.getMemoriaRam())));
+        pdu.add(new VariableBinding(new OID(mib.NOME_OID), new OctetString(win.getNomeHost())));
+        pdu.add(new VariableBinding(new OID(mib.DOMINIO_OID), new OctetString(win.getDominio())));
+        pdu.add(new VariableBinding(new OID(mib.USUARIO_LOGADO_OID), new OctetString(win.getUltimoUsuarioLogado())));
+        pdu.add(new VariableBinding(new OID(mib.TEMPO_LIGADO_OID), new OctetString(win.getTempoLigado())));
+        pdu.add(new VariableBinding(new OID(mib.GATEWAY_OID), new OctetString(win.getGateway())));
+        pdu.add(new VariableBinding(new OID(mib.DNS_OID), new OctetString(win.getDnsList().toString())));
+        pdu.add(new VariableBinding(new OID(mib.INTERFACES_OID), new OctetString(win.getIntefaces().toString())));
+        pdu.add(new VariableBinding(new OID(mib.DISCO_RIGIDO_OID), new OctetString(win.getDiscos().toString())));
+        pdu.add(new VariableBinding(new OID(mib.IMPRESSORAS_OID), new OctetString(win.getImpressoras().toString())));
+        pdu.add(new VariableBinding(new OID(mib.PLACAS_VIDEO_OID), new OctetString(win.getPlascasVideo().toString())));
+        pdu.add(new VariableBinding(new OID(mib.PROGRAMAS_OID), new OctetString(win.getProgramasIntalados().toString())));
 
 
         pdu.setType(PDU.NOTIFICATION);
