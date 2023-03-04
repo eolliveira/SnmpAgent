@@ -41,6 +41,8 @@ public class SnmpAgentApplication {
             System.out.println("Falha ao iniciar o agente SNMP na porta 161 : " + e.getMessage());
         }
 
+        //TODO(Nãao retornando modelo da placa mãe para pc (caampoMODELO))
+
     }
 
 
