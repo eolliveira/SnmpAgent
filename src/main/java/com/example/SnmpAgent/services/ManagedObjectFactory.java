@@ -64,7 +64,6 @@ public class ManagedObjectFactory {
         } else if (value instanceof Integer) {
             return new Integer32((Integer) value);
         }
-        // TODO - lidar com tipos de dados adicionais, se necessário
 
         throw new IllegalArgumentException("Tipo não gerenciado: " + value.getClass());
     }
