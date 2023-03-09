@@ -9,7 +9,7 @@ public class SnmpAgentApplication {
     private static String COMMUNITY = "public";
 
     //ip do manager
-    private static String IPADDRESS = "erick";
+    private static String IPADDRESS = "10.0.5.36";
     private static String OID = ".1.3.6.1.2.1.1.8";
     private static String portTrap = "162";
 

@@ -14,16 +14,11 @@ import org.snmp4j.security.USM;
 import org.snmp4j.smi.*;
 import org.snmp4j.transport.TransportMappings;
 import oshi.SystemInfo;
-import oshi.hardware.CentralProcessor;
 import oshi.hardware.HardwareAbstractionLayer;
 import oshi.software.os.OperatingSystem;
 
-import javax.print.PrintService;
-import javax.print.PrintServiceLookup;
 import java.io.File;
 import java.io.IOException;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 
 public class SnmpAgentReceiver extends BaseAgent {
     private String address;
@@ -162,39 +157,42 @@ public class SnmpAgentReceiver extends BaseAgent {
 
         unregisterManagedObject(getSnmpv2MIB());
 
-        System.out.println();
+        try {
+            WindowsMIB mib = new WindowsMIB();
+            WindowsConverter converter = new WindowsConverter();
+            WindowsObject win = converter.getConvertedData();
 
-        WindowsMIB mib = new WindowsMIB();
-        WindowsConverter converter = new WindowsConverter();
-        WindowsObject win = converter.getConvertedData();
-
-        // register all custom MIB data
-        registerManagedObject(ManagedObjectFactory.createReadOnly(mib.SO_OID, win.getSistemaOperacional()));
-        registerManagedObject(ManagedObjectFactory.createReadOnly(mib.ARQUITETURA_SO_OID, win.getArquiteturaSo()));
-        registerManagedObject(ManagedObjectFactory.createReadOnly(mib.FABRICANTE_OID, win.getFabricante()));
-        registerManagedObject(ManagedObjectFactory.createReadOnly(mib.MODELO_OID, win.getModelo()));
-        registerManagedObject(ManagedObjectFactory.createReadOnly(mib.NUMERO_SERIE_OID, win.getNumeroSerie()));
-        registerManagedObject(ManagedObjectFactory.createReadOnly(mib.PROCESSADOR_OID, win.getProcessador()));
-        registerManagedObject(ManagedObjectFactory.createReadOnly(mib.MEMORIA_RAM_OID, win.getMemoriaRam()));
-        registerManagedObject(ManagedObjectFactory.createReadOnly(mib.NOME_OID, win.getNomeHost()));
-        registerManagedObject(ManagedObjectFactory.createReadOnly(mib.DOMINIO_OID, win.getDominio()));
-        registerManagedObject(ManagedObjectFactory.createReadOnly(mib.GATEWAY_OID, win.getGateway()));
-        registerManagedObject(ManagedObjectFactory.createReadOnly(mib.DNS_OID, win.getDnsList()));
-        registerManagedObject(ManagedObjectFactory.createReadOnly(mib.USUARIO_LOGADO_OID, win.getUltimoUsuarioLogado()));
-        registerManagedObject(ManagedObjectFactory.createReadOnly(mib.TEMPO_LIGADO_OID, win.getTempoLigado()));
-        registerManagedObject(ManagedObjectFactory.createReadOnly(mib.INTERFACES_OID, win.getIntefaces()));
-        registerManagedObject(ManagedObjectFactory.createReadOnly(mib.DISCO_RIGIDO_OID, win.getDiscos()));
-        registerManagedObject(ManagedObjectFactory.createReadOnly(mib.IMPRESSORAS_OID, win.getImpressoras()));
-        registerManagedObject(ManagedObjectFactory.createReadOnly(mib.PLACAS_VIDEO_OID, win.getPlascasVideo()));
-        registerManagedObject(ManagedObjectFactory.createReadOnly(mib.PROGRAMAS_OID, win.getProgramasIntalados()));
+            // register all custom MIB data
+            registerManagedObject(ManagedObjectFactory.createReadOnly(mib.SO_OID, win.getSistemaOperacional()));
+            registerManagedObject(ManagedObjectFactory.createReadOnly(mib.ARQUITETURA_SO_OID, win.getArquiteturaSo()));
+            registerManagedObject(ManagedObjectFactory.createReadOnly(mib.FABRICANTE_OID, win.getFabricante()));
+            registerManagedObject(ManagedObjectFactory.createReadOnly(mib.MODELO_OID, win.getModelo()));
+            registerManagedObject(ManagedObjectFactory.createReadOnly(mib.NUMERO_SERIE_OID, win.getNumeroSerie()));
+            registerManagedObject(ManagedObjectFactory.createReadOnly(mib.PROCESSADOR_OID, win.getProcessador()));
+            registerManagedObject(ManagedObjectFactory.createReadOnly(mib.MEMORIA_RAM_OID, win.getMemoriaRam()));
+            registerManagedObject(ManagedObjectFactory.createReadOnly(mib.NOME_OID, win.getNomeHost()));
+            registerManagedObject(ManagedObjectFactory.createReadOnly(mib.DOMINIO_OID, win.getDominio()));
+            registerManagedObject(ManagedObjectFactory.createReadOnly(mib.GATEWAY_OID, win.getGateway()));
+            registerManagedObject(ManagedObjectFactory.createReadOnly(mib.DNS_OID, win.getDnsList()));
+            registerManagedObject(ManagedObjectFactory.createReadOnly(mib.USUARIO_LOGADO_OID, win.getUltimoUsuarioLogado()));
+            registerManagedObject(ManagedObjectFactory.createReadOnly(mib.TEMPO_LIGADO_OID, win.getTempoLigado()));
+            registerManagedObject(ManagedObjectFactory.createReadOnly(mib.INTERFACES_OID, win.getIntefaces()));
+            registerManagedObject(ManagedObjectFactory.createReadOnly(mib.DISCO_RIGIDO_OID, win.getDiscos()));
+            registerManagedObject(ManagedObjectFactory.createReadOnly(mib.IMPRESSORAS_OID, win.getImpressoras()));
+            registerManagedObject(ManagedObjectFactory.createReadOnly(mib.PLACAS_VIDEO_OID, win.getPlascasVideo()));
+            registerManagedObject(ManagedObjectFactory.createReadOnly(mib.PROGRAMAS_OID, win.getProgramasIntalados()));
 
 
-        //teste
-        WindowsObject windows = new WindowsObject();
-        SystemInfo si = new SystemInfo();
-        HardwareAbstractionLayer hal = si.getHardware();
-        OperatingSystem os = si.getOperatingSystem();
+            //teste
+            WindowsObject windows = new WindowsObject();
+            SystemInfo si = new SystemInfo();
+            HardwareAbstractionLayer hal = si.getHardware();
+            OperatingSystem os = si.getOperatingSystem();
 
+
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
