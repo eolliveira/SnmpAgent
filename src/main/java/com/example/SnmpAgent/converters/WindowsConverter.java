@@ -120,7 +120,7 @@ public class WindowsConverter {
             DiscoRigidoObject obj2 = new DiscoRigidoObject(
                     disc.getName().substring(4),
                     disc.getModel().substring(0, disc.getModel().indexOf("(") - 1),
-                    disc.getSerial(),
+                    disc.getSerial().trim(),
                     disc.getSize());
             for (HWPartition partition : disc.getPartitions()) {
                 ParticaoObject part = new ParticaoObject(
