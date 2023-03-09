@@ -2,12 +2,27 @@ package com.example.SnmpAgent.objects;
 
 public class PlacaMaeObject {
 
+    private String fabricante;
     private String modelo;
     private String serialNumber;
 
-    public PlacaMaeObject(String nome, String serialNumber) {
-        this.modelo = nome;
+    public PlacaMaeObject(String modelo, String serialNumber) {
+        this.modelo = modelo;
         this.serialNumber = serialNumber;
+    }
+
+    public PlacaMaeObject(String fabricante, String modelo, String serialNumber) {
+        this.fabricante = fabricante;
+        this.modelo = modelo;
+        this.serialNumber = serialNumber;
+    }
+
+    public String getFabricante() {
+        return fabricante;
+    }
+
+    public void setFabricante(String fabricante) {
+        this.fabricante = fabricante;
     }
 
     public String getModelo() {
@@ -30,6 +45,7 @@ public class PlacaMaeObject {
     public String toString() {
         return "{" +
                 "'modelo':'" + modelo + '\'' +
+                ", 'fabricante':'" + fabricante + '\'' +
                 ", 'numeroSerie':'" + serialNumber + '\'' +
                 "}";
     }

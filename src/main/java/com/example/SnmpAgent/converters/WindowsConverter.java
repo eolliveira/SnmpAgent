@@ -29,9 +29,9 @@ public class WindowsConverter {
 
         windows.setSistemaOperacional(os.toString());
         windows.setArquiteturaSo(os.getBitness());
-        windows.setFabricante(hal.getComputerSystem().getManufacturer());
-        windows.setModelo(Objects.equals(hal.getComputerSystem().getModel(), "noSuchObject") ? getPlacaMaeDesktop().get(0).getModelo() : hal.getComputerSystem().getModel());
-        windows.setNumeroSerie(Objects.equals(hal.getComputerSystem().getSerialNumber(), "noSuchObject") ? getPlacaMaeDesktop().get(0).getSerialNumber() : hal.getComputerSystem().getSerialNumber());
+        windows.setFabricante(Objects.equals(hal.getComputerSystem().getManufacturer(), "System manufacturer") ? getPlacaMaeDesktop().get(0).getFabricante() : hal.getComputerSystem().getManufacturer());
+        windows.setModelo(Objects.equals(hal.getComputerSystem().getModel(), "System Product Name") ? getPlacaMaeDesktop().get(0).getModelo() : hal.getComputerSystem().getModel());
+        windows.setNumeroSerie(Objects.equals(hal.getComputerSystem().getSerialNumber(), "System Serial Number") ? getPlacaMaeDesktop().get(0).getSerialNumber() : hal.getComputerSystem().getSerialNumber());
         windows.setNomeHost(os.getNetworkParams().getHostName());
         windows.setDominio(os.getNetworkParams().getDomainName());
         windows.setGateway(os.getNetworkParams().getIpv4DefaultGateway());
@@ -60,12 +60,20 @@ public class WindowsConverter {
         String line2;
         while ((line2 = reader.readLine()) != null) {
             if (!line2.isEmpty()) {
-                String modeloPm = line2.substring(0, line2.indexOf(" "));
-                String numeroSerie = line2.substring(line2.indexOf(" "));
-                PlacaMaeObject pm = new PlacaMaeObject(modeloPm.trim().replaceAll("[^\\x00-\\x7F]+", "@"), numeroSerie.trim());
+                String fabricante = line2.substring(0, line2.indexOf("  "));
+                String modeloPm = line2.substring(line2.indexOf("  ")).trim();
+                //String numeroSerie = line2.substring(line2.lastIndexOf(" "));
+                System.out.println("---------------");
+                String xfab = fabricante;
+                String model = modeloPm.substring(0, modeloPm.indexOf("  "));
+                String numeroS =  modeloPm.trim().substring(modeloPm.trim().indexOf("  ")).trim();
+                PlacaMaeObject pm = new PlacaMaeObject(xfab, model, numeroS);
                 placaMaeList.add(pm);
+
+                System.out.println(pm);
             }
         }
+
         process.waitFor();
         placaMaeList.remove(0);
         return placaMaeList;
