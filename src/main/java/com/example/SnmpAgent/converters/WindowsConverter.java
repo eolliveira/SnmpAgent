@@ -27,7 +27,6 @@ public class WindowsConverter {
 
     public WindowsObject getConvertedData() throws IOException, InterruptedException {
 
-
         windows.setSistemaOperacional(os.toString());
         windows.setArquiteturaSo(os.getBitness());
         windows.setFabricante(hal.getComputerSystem().getManufacturer());
