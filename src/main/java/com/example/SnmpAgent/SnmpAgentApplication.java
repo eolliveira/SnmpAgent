@@ -11,7 +11,7 @@ public class SnmpAgentApplication {
     //ip do manager
     private static String IPADDRESS = "10.0.5.36";
     private static String OID = ".1.3.6.1.2.1.1.8";
-    private static String portTrap = "162";
+    private static String portTrap = "1062";
 
     public static void main(String[] args) throws IOException {
         //lança trap para o manager
@@ -21,7 +21,7 @@ public class SnmpAgentApplication {
 
         try {
             // crie um agente receptor em localhost:161
-            SnmpAgentReceiver agentReceiver = new SnmpAgentReceiver("0.0.0.0/161");
+            SnmpAgentReceiver agentReceiver = new SnmpAgentReceiver("0.0.0.0/1061");
 
             // realmente comece a ouvir
             agentReceiver.start();
@@ -29,7 +29,7 @@ public class SnmpAgentApplication {
             // register the custom mib information
             agentReceiver.registerCustomMIB();
 
-            System.out.println("AgentSNMP ouvindo na porta 161...");
+            System.out.println("AgentSNMP ouvindo na porta 1061...");
 
             // apenas continue executando o processo
             while(true) {
@@ -38,7 +38,7 @@ public class SnmpAgentApplication {
 
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("Falha ao iniciar o agente SNMP na porta 161 : " + e.getMessage());
+            System.out.println("Falha ao iniciar o agente SNMP na porta 1061 : " + e.getMessage());
         }
 
     }
