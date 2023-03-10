@@ -1,7 +1,6 @@
 package com.example.SnmpAgent.services;
 
 import com.example.SnmpAgent.model.CustomManagedObject;
-import com.example.SnmpAgent.objects.DiscoRigidoObject;
 import org.snmp4j.agent.MOAccess;
 import org.snmp4j.agent.mo.MOAccessImpl;
 import org.snmp4j.agent.mo.MOScalar;

@@ -59,7 +59,6 @@ public class SnmpTrapSender {
             pdu.add(new VariableBinding(new OID(mib.PLACAS_VIDEO_OID), new OctetString(win.getPlascasVideo().toString())));
             pdu.add(new VariableBinding(new OID(mib.PROGRAMAS_OID), new OctetString(win.getProgramasIntalados().toString())));
 
-
             pdu.setType(PDU.NOTIFICATION);
 
             Snmp snmp = new Snmp(transportMapping);

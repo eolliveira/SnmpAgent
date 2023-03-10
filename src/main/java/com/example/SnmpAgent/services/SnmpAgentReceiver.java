@@ -182,14 +182,6 @@ public class SnmpAgentReceiver extends BaseAgent {
             registerManagedObject(ManagedObjectFactory.createReadOnly(mib.PLACAS_VIDEO_OID, win.getPlascasVideo()));
             registerManagedObject(ManagedObjectFactory.createReadOnly(mib.PROGRAMAS_OID, win.getProgramasIntalados()));
 
-
-            //teste
-            WindowsObject windows = new WindowsObject();
-            SystemInfo si = new SystemInfo();
-            HardwareAbstractionLayer hal = si.getHardware();
-            OperatingSystem os = si.getOperatingSystem();
-
-
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
