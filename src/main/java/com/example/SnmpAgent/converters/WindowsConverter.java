@@ -64,7 +64,7 @@ public class WindowsConverter {
                 String strModel = line2.substring(line2.indexOf("  ")).trim();
                 String fabricante = strFab;
                 String modelo = strModel.substring(0, strModel.indexOf("  "));
-                String serialNumber =  strModel.trim().substring(strModel.trim().indexOf("  ")).trim();
+                String serialNumber = strModel.trim().substring(strModel.trim().indexOf("  ")).trim();
                 PlacaMaeObject pm = new PlacaMaeObject(fabricante, modelo, serialNumber);
                 placaMaeList.add(pm);
             }
