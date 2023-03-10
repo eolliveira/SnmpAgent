@@ -7,17 +7,15 @@ import java.io.IOException;
 
 public class SnmpAgentApplication {
     private static String COMMUNITY = "public";
-
-    //ip do manager
     private static String IPADDRESS = "10.0.5.36";
     private static String OID = ".1.3.6.1.2.1.1.8";
-    private static String portTrap = "1062";
+    private static String PORTTRAP = "1062";
 
     public static void main(String[] args) throws IOException {
         //lança trap para o manager
-        System.out.println("Iniciando SnmpTrapSender na porta " + portTrap);
+        System.out.println("Iniciando SnmpTrapSender na porta " + PORTTRAP);
         SnmpTrapSender trapSender = new SnmpTrapSender();
-        trapSender.sendTrapV1(COMMUNITY, IPADDRESS, portTrap, OID);
+        trapSender.sendTrapV1(COMMUNITY, IPADDRESS, PORTTRAP, OID);
 
         try {
             // crie um agente receptor em localhost:161
