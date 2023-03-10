@@ -30,7 +30,7 @@ public class WindowsConverter {
         windows.setSistemaOperacional(os.toString());
         windows.setArquiteturaSo(os.getBitness());
         windows.setFabricante(Objects.equals(hal.getComputerSystem().getManufacturer(), "System manufacturer") ? getPlacaMaeDesktop().get(0).getFabricante() : hal.getComputerSystem().getManufacturer());
-        windows.setModelo(Objects.equals(hal.getComputerSystem().getModel(), "System Product Name") ? getPlacaMaeDesktop().get(0).getModelo() : hal.getComputerSystem().getModel());
+        windows.setModelo(Objects.equals(hal.getComputerSystem().getModel(), "Inspiron 3583") ? getPlacaMaeDesktop().get(0).getModelo() : hal.getComputerSystem().getModel());
         windows.setNumeroSerie(Objects.equals(hal.getComputerSystem().getSerialNumber(), "System Serial Number") ? getPlacaMaeDesktop().get(0).getSerialNumber() : hal.getComputerSystem().getSerialNumber());
         windows.setNomeHost(os.getNetworkParams().getHostName());
         windows.setDominio(os.getNetworkParams().getDomainName());
@@ -51,7 +51,7 @@ public class WindowsConverter {
 
     private static List<PlacaMaeObject> getPlacaMaeDesktop() throws IOException, InterruptedException {
         //TODO(TESTAR MODELO PLACA MÃE)
-        ProcessBuilder builder = new ProcessBuilder("cmd.exe", "/c", "cd C:\\Windows\\System32\\wbem && wmic baseboard get product,serialnumber");
+        ProcessBuilder builder = new ProcessBuilder("cmd.exe", "/c", "cd C:\\Windows\\System32\\wbem && wmic baseboard get product,Manufacturer,serialnumber");
         builder.redirectErrorStream(true);
         Process process = builder.start();
         BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
@@ -60,17 +60,14 @@ public class WindowsConverter {
         String line2;
         while ((line2 = reader.readLine()) != null) {
             if (!line2.isEmpty()) {
-                String fabricante = line2.substring(0, line2.indexOf("  "));
-                String modeloPm = line2.substring(line2.indexOf("  ")).trim();
-                //String numeroSerie = line2.substring(line2.lastIndexOf(" "));
+                String strFab = line2.substring(0, line2.indexOf("  "));
+                String strModel = line2.substring(line2.indexOf("  ")).trim();
                 System.out.println("---------------");
-                String xfab = fabricante;
-                String model = modeloPm.substring(0, modeloPm.indexOf("  "));
-                String numeroS =  modeloPm.trim().substring(modeloPm.trim().indexOf("  ")).trim();
-                PlacaMaeObject pm = new PlacaMaeObject(xfab, model, numeroS);
+                String fabricante = strFab;
+                String modelo = strModel.substring(0, strModel.indexOf("  "));
+                String serialNumber =  strModel.trim().substring(strModel.trim().indexOf("  ")).trim();
+                PlacaMaeObject pm = new PlacaMaeObject(fabricante, modelo, serialNumber);
                 placaMaeList.add(pm);
-
-                System.out.println(pm);
             }
         }
 
