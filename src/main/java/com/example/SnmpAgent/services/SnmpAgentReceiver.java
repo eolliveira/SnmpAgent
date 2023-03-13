@@ -13,9 +13,6 @@ import org.snmp4j.security.SecurityModel;
 import org.snmp4j.security.USM;
 import org.snmp4j.smi.*;
 import org.snmp4j.transport.TransportMappings;
-import oshi.SystemInfo;
-import oshi.hardware.HardwareAbstractionLayer;
-import oshi.software.os.OperatingSystem;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,7 +20,6 @@ import java.io.IOException;
 public class SnmpAgentReceiver extends BaseAgent {
     private String address;
 
-    // Example: new SnmpAgentReceiver("0.0.0.0/161");
     public SnmpAgentReceiver(String address) {
 
         /*
@@ -72,7 +68,7 @@ public class SnmpAgentReceiver extends BaseAgent {
     }
 
     /**
-     * Adds all the necessary initial users to the USM.
+     * Adiciona todos os usuários iniciais necessários ao USM.
      */
     @Override
     protected void addUsmUser(USM arg0) {

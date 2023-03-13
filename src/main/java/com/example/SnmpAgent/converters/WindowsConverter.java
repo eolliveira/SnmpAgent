@@ -29,9 +29,6 @@ public class WindowsConverter {
 
         windows.setSistemaOperacional(os.toString());
         windows.setArquiteturaSo(os.getBitness());
-        windows.setFabricante(Objects.equals(hal.getComputerSystem().getManufacturer(), "System manufacturer") ? getPlacaMaeDesktop().get(0).getFabricante() : hal.getComputerSystem().getManufacturer());
-        windows.setModelo(Objects.equals(hal.getComputerSystem().getModel(), "System Product Name") ? getPlacaMaeDesktop().get(0).getModelo() : hal.getComputerSystem().getModel());
-        windows.setNumeroSerie(Objects.equals(hal.getComputerSystem().getSerialNumber(), "System Serial Number") ? getPlacaMaeDesktop().get(0).getSerialNumber() : hal.getComputerSystem().getSerialNumber());
         windows.setNomeHost(os.getNetworkParams().getHostName());
         windows.setDominio(os.getNetworkParams().getDomainName());
         windows.setGateway(os.getNetworkParams().getIpv4DefaultGateway());
@@ -45,23 +42,31 @@ public class WindowsConverter {
         windows.setImpressoras(getImpressorasInstaladas());
         windows.setPlascasVideo(getPlacasVideo());
         windows.setProgramasIntalados(getProgramasInstalados());
+        windows.setFabricante(Objects.equals(
+                hal.getComputerSystem().getManufacturer(), "System manufacturer")
+                ? getPlacaMaeDesktop().get(0).getFabricante() : hal.getComputerSystem().getManufacturer());
+        windows.setModelo(Objects.equals(
+                hal.getComputerSystem().getModel(), "System Product Name")
+                ? getPlacaMaeDesktop().get(0).getModelo() : hal.getComputerSystem().getModel());
+        windows.setNumeroSerie(Objects.equals(
+                hal.getComputerSystem().getSerialNumber(), "System Serial Number")
+                ? getPlacaMaeDesktop().get(0).getSerialNumber() : hal.getComputerSystem().getSerialNumber());
 
         return windows;
     }
 
     private static List<PlacaMaeObject> getPlacaMaeDesktop() throws IOException, InterruptedException {
-        //TODO(TESTAR MODELO PLACA MÃE)
         ProcessBuilder builder = new ProcessBuilder("cmd.exe", "/c", "cd C:\\Windows\\System32\\wbem && wmic baseboard get product,Manufacturer,serialnumber");
         builder.redirectErrorStream(true);
         Process process = builder.start();
         BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
         List<PlacaMaeObject> placaMaeList = new ArrayList<>();
 
-        String line2;
-        while ((line2 = reader.readLine()) != null) {
-            if (!line2.isEmpty()) {
-                String strFab = line2.substring(0, line2.indexOf("  "));
-                String strModel = line2.substring(line2.indexOf("  ")).trim();
+        String line;
+        while ((line = reader.readLine()) != null) {
+            if (!line.isEmpty()) {
+                String strFab = line.substring(0, line.indexOf("  "));
+                String strModel = line.substring(line.indexOf("  ")).trim();
                 String fabricante = strFab;
                 String modelo = strModel.substring(0, strModel.indexOf("  "));
                 String serialNumber = strModel.trim().substring(strModel.trim().indexOf("  ")).trim();
